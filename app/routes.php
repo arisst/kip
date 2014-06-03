@@ -42,6 +42,7 @@ Route::group(array('prefix'=>'admin', 'before'=>'auth.admin'), function(){
 	Route::resource('users', 'UsersController');
 	Route::resource('informations', 'InformationsController');
 	Route::resource('requests', 'RequestsController');
+	Route::resource('responses', 'RequestsController');
 	Route::get('profile', array('uses'=>'AccountController@showProfile'));
 	Route::post('profile', array('uses'=>'AccountController@doProfile'));
 	Route::get('setting', 'SettingController@index');

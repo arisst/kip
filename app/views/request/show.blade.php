@@ -5,28 +5,87 @@
 
 @section('content')
 
+@foreach ($request as $request)
 <div class="panel panel-primary">
   <!-- Default panel contents -->
-  <div class="panel-heading">Show</div>
+  <div class="panel-heading">Detail Request</div>
   <div class="panel-body">
   <a href="{{ URL::to('admin/requests') }}" type="button" class="btn btn-default hidden-print btn-sm {{ Request::is('admin/requests') ? 'active' : '' }}">
-  <span class="glyphicon glyphicon-th-list"></span> List Request
-</a>
+    <span class="glyphicon glyphicon-th-list"></span> List Request
+  </a>
+  <a href="{{ URL::to('admin/requests/'.$request->id.'?act=accept') }}" type="button" class="btn btn-primary hidden-print btn-sm {{ (Input::get('act')=='accept') ? 'active' : '' }}">
+    <span class="glyphicon glyphicon-th-list"></span> Accept
+  </a>
+  <a href="{{ URL::to('admin/requests/'.$request->id.'?act=reject') }}" type="button" class="btn btn-danger hidden-print btn-sm {{ (Input::get('act')=='reject') ? 'active' : '' }}">
+    <span class="glyphicon glyphicon-th-list"></span> Reject
+  </a>
+
 <br><br>
-  	<ul class="list-group">
-    @foreach ($request as $request)
-    	<li class="list-group-item">Request ID : <b>{{$request->id}}</b></li>
-    	<li class="list-group-item">Nama : <b>{{$request->name}}</b></li>
-    	<li class="list-group-item">Subjek : <b>{{$request->title}}</b></li>
-    	<li class="list-group-item">Deskripsi : <blockquote>{{$request->description}}</blockquote></li>
-    	<li class="list-group-item">Tanggal : <b>{{$request->added_on}}</b></li>
-    	<li class="list-group-item">Status : <b> 
-      {{$request->status}}
+
+@if(Input::has('act'))
+
+  {{ Form::model($request, array('route' => array('admin.requests.update', $request->id), 'method' => 'PUT', 'class'=>'form-horizontal')) }}
+
+  <div class="form-group">
+    {{ Form::label('title', 'Subject', array('class'=>'col-sm-2 control-label')) }}
+    <div class="input-group col-xs-6">
+      {{ Form::text('title', '', array('class'=>'form-control input-sm', 'id'=>'title', 'placeholder'=>'Subject', 'required', 'autofocus')) }}
+    <span class="help-block alert-danger">{{ $errors->first('title') }}</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+  {{ Form::label('description', 'Reason', array('class'=>'col-sm-2 control-label')) }}
+    <div class="input-group col-xs-6">
+      {{ Form::textarea('description', '', array('class'=>'form-control input-sm', 'id'=>'description', 'placeholder'=>'Reason', 'required')) }}
+      <span class="help-block alert-danger">{{ $errors->first('description') }}</span>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <div class="col-sm-offset-2">
+      <button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-save"></span> Submit</button>
+    </div>
+  </div>
+
+  {{ Form::close() }}
+
+@endif
+
+<div class="col-md-6">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-info"><b>Detail Request</b></li>
+      <li class="list-group-item">Informasi : <b>{{$request->ititle}} 
+      @if($request->ifile)
+      {{HTML::link('uploads/'.$request->ifile,'File',array('target'=>'_blank'))}}
+      @endif
+      </b></li>
+      <li class="list-group-item">Kategori : <b>{{$request->icategory}}</b>
+      <li class="list-group-item"> <blockquote> <p> {{$request->title}} </p> <footer>{{$request->description}}</footer></blockquote></li>
+      <li class="list-group-item">Tanggal : <b>{{$request->added_on}}</b></li>
+      <li class="list-group-item">Status : <b> 
+      @if('0'==$request->status) {{'Pending'}}
+      @elseif('1'==$request->status) {{'Accepted'}}
+      @elseif('2'==$request->status) {{'Rejected'}}
+      @endif
       </b>
       </li>
-      @endforeach
     </ul>
-
+</div>
+<div class="col-md-6">
+    <ul class="list-group">
+    
+      <li class="list-group-item list-group-item-info"><b>Detail User</b></li>
+      <li class="list-group-item">Nama : <b>{{$request->name}}</b></li>
+      <li class="list-group-item">Email : <b>{{$request->email}}</b></li>
+      <li class="list-group-item">Nomor KTP : <b>{{$request->ktp}}</b></li>
+      <li class="list-group-item">Alamat : <blockquote> <footer> {{$request->address}}</footer></blockquote></li>
+      <li class="list-group-item">Telepon : <b>{{$request->phone}}</b></li>
+    
+    </ul>
+</div>
   </div>
 </div>
+@endforeach
 @stop

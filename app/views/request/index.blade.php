@@ -14,7 +14,7 @@
   <span class="glyphicon glyphicon-th-list"></span> List Request
 </a>
 
-    {{ Form::open(array('url'=>'admin/requests', 'method'=>'get', 'class'=>'navbar-form navbar-right', 'role'=>'form')) }}
+    {{ Form::open(array('url'=>'admin/responses', 'method'=>'get', 'class'=>'navbar-form navbar-right', 'role'=>'form')) }}
     <div class="form-group">
 	    {{ Form::text('search', (isset($keyword)) ? $keyword : '', array('class'=>'form-control input-sm', 'placeholder'=>'Search...','autofocus'))}}
 	    <a href="{{ URL::to('admin/requests') }}" type="button" class="btn hidden-print btn-default btn-sm">
@@ -38,6 +38,7 @@
 				<th>Subject</th>
 				<th>Description</th>
 				<th>Status</th>
+				<th>Tanggal</th>
 				<th class="hidden-print">Actions</th>
 			</tr>
 		</thead>
@@ -56,6 +57,7 @@
 						@else Unknown
 						@endif
 					</td>
+					<td>{{$value->added_on}}</td>
 					<td class="hidden-print">
 						{{ Form::open(array('url' => 'admin/requests/'.$value->id, 'style' => 'margin-bottom:0')) }}
 							<a class="btn btn-xs btn-success" href="{{ URL::to('admin/requests/' . $value->id) }}">
