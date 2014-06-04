@@ -10,12 +10,12 @@
   <div class="panel-heading">User List</div>
   <div class="panel-body">
 
-	@include('action', array('p' => 'User', 'l'=>'admin/users', 'a'=>'active'))
+	@include('action', array('p' => 'User', 'l'=>'admin.users', 'a'=>'active'))
 
-    {{ Form::open(array('url'=>'admin/users', 'method'=>'get', 'class'=>'navbar-form navbar-right', 'role'=>'form')) }}
+    {{ Form::open(array('route'=>'admin.users.index', 'method'=>'get', 'class'=>'navbar-form navbar-right', 'role'=>'form')) }}
     <div class="form-group">
 	    {{ Form::text('search', (isset($keyword)) ? $keyword : '', array('class'=>'form-control input-sm', 'placeholder'=>'Search...','autofocus'))}}
-	    <a href="{{ URL::to('admin/users') }}" type="button" class="btn hidden-print btn-default btn-sm">
+	    <a href="{{ URL::route('admin.users.index') }}" type="button" class="btn hidden-print btn-default btn-sm">
 		  <span class="glyphicon glyphicon-refresh"></span> Reset
 		</a>
     </div>
@@ -61,11 +61,11 @@
 						@endif
 					</td>
 					<td class="hidden-print">
-						{{ Form::open(array('url' => 'admin/users/'.$value->id, 'style' => 'margin-bottom:0')) }}
-							<a class="btn btn-xs btn-success" href="{{ URL::to('admin/users/' . $value->id) }}">
+						{{ Form::open(array('route' => array('admin.users.destroy',$value->id), 'style' => 'margin-bottom:0')) }}
+							<a class="btn btn-xs btn-success" href="{{ URL::route('admin.users.show', $value->id) }}">
 								<span class="glyphicon glyphicon-eye-open"></span>View
 							</a>
-							<a class="btn btn-xs btn-info" href="{{ URL::to('admin/users/' . $value->id . '/edit') }}">
+							<a class="btn btn-xs btn-info" href="{{ URL::route('admin.users.edit',$value->id) }}">
 								<span class="glyphicon glyphicon-edit"></span> Edit
 							</a>
 							{{ Form::hidden('_method', 'DELETE') }}

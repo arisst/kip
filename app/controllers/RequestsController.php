@@ -40,7 +40,7 @@ class RequestsController extends BaseController {
 		$request->delete();
 
 		Session::flash('message', 'Successfully deleted the request!');
-		return Redirect::to('admin/requests');
+		return Redirect::route('admin.requests.index');
 	}
 
 }

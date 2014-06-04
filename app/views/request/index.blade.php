@@ -10,14 +10,14 @@
   <div class="panel-heading">Request List</div>
   <div class="panel-body">
 
-<a href="{{ URL::to('admin/requests') }}" type="button" class="btn btn-default hidden-print btn-sm {{ Request::is('admin/requests') ? 'active' : '' }}">
+<a href="{{ URL::route('admin.requests.index') }}" type="button" class="btn btn-default hidden-print btn-sm {{ (Route::currentRouteName()=='admin.requests.index') ? 'active' : '' }}">
   <span class="glyphicon glyphicon-th-list"></span> List Request
 </a>
 
-    {{ Form::open(array('url'=>'admin/responses', 'method'=>'get', 'class'=>'navbar-form navbar-right', 'role'=>'form')) }}
+    {{ Form::open(array('route'=>'admin.requests.index', 'method'=>'get', 'class'=>'navbar-form navbar-right', 'role'=>'form')) }}
     <div class="form-group">
 	    {{ Form::text('search', (isset($keyword)) ? $keyword : '', array('class'=>'form-control input-sm', 'placeholder'=>'Search...','autofocus'))}}
-	    <a href="{{ URL::to('admin/requests') }}" type="button" class="btn hidden-print btn-default btn-sm">
+	    <a href="{{ URL::route('admin.requests.index') }}" type="button" class="btn hidden-print btn-default btn-sm">
 		  <span class="glyphicon glyphicon-refresh"></span> Reset
 		</a>
     </div>
@@ -59,8 +59,8 @@
 					</td>
 					<td>{{$value->added_on}}</td>
 					<td class="hidden-print">
-						{{ Form::open(array('url' => 'admin/requests/'.$value->id, 'style' => 'margin-bottom:0')) }}
-							<a class="btn btn-xs btn-success" href="{{ URL::to('admin/requests/' . $value->id) }}">
+						{{ Form::open(array('route' => array('admin.requests.destroy', $value->id), 'style' => 'margin-bottom:0')) }}
+							<a class="btn btn-xs btn-success" href="{{ URL::route('admin.requests.show', $value->id) }}">
 								<span class="glyphicon glyphicon-eye-open"></span>View
 							</a>
 							{{ Form::hidden('_method', 'DELETE') }}

@@ -36,15 +36,15 @@ Route::group(array('before'=>'auth'), function(){
 
 //Admin Route
 Route::group(array('prefix'=>'admin', 'before'=>'auth.admin'), function(){
-	Route::get('/', array(function(){
+	Route::get('/', array('as'=>'admin-index',function(){
 		return View::make('dashboard.index');
 	}));
 	Route::resource('users', 'UsersController');
 	Route::resource('informations', 'InformationsController');
 	Route::resource('requests', 'RequestsController');
-	Route::resource('responses', 'RequestsController');
-	Route::get('profile', array('uses'=>'AccountController@showProfile'));
-	Route::post('profile', array('uses'=>'AccountController@doProfile'));
-	Route::get('setting', 'SettingController@index');
-	Route::post('setting', 'SettingController@update');
+	Route::resource('responses', 'ResponsesController');
+	Route::get('profile', array('as'=>'admin-profile-form','uses'=>'AccountController@showProfile'));
+	Route::post('profile', array('as'=>'admin-profile-submit','uses'=>'AccountController@doProfile'));
+	Route::get('setting', array('as'=>'admin-setting-index','uses'=>'SettingController@index'));
+	Route::post('setting', array('as'=>'admin-setting-update','uses'=>'SettingController@update'));
 });

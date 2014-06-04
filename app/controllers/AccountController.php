@@ -23,7 +23,7 @@ class AccountController extends FrontController {
 			{
 				if(Auth::user()->level==1 || Auth::user()->level==2)
 				{
-					return Redirect::to('admin');
+					return Redirect::route('admin-index');
 				}
 				else
 				{

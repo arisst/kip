@@ -9,7 +9,7 @@
   <!-- Default panel contents -->
   <div class="panel-heading">Show {{$user->name}}</div>
   <div class="panel-body">
-  	@include('action', array('p' => 'User', 'l'=>'admin/users', 'a'=>'active'))
+  	@include('action', array('p' => 'User', 'l'=>'admin.users', 'a'=>'active'))
 <br><br>
   	<ul class="list-group">
     	<li class="list-group-item">User ID : <b>{{$user->id}}</b></li>

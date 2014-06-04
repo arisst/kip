@@ -44,7 +44,7 @@ class UsersController extends BaseController {
 
 		if ($validator->fails()) 
 		{
-			return Redirect::to('admin/users/create')->withErrors($validator)->withInput(Input::except('password'));
+			return Redirect::route('admin.users.create')->withErrors($validator)->withInput(Input::except('password'));
 		} 
 		else 
 		{
@@ -57,7 +57,7 @@ class UsersController extends BaseController {
 			$user->save();
 
 			Session::flash('message', 'Successfully created user!');
-			return Redirect::to('admin/users');
+			return Redirect::route('admin.users.index');
 		}
 	}
 
@@ -103,7 +103,7 @@ class UsersController extends BaseController {
 			$user->save();
 
 			Session::flash('message', 'Successfully updated user!');
-			return Redirect::to('admin/users');
+			return Redirect::to('admin.users.index');
 		}
 	}
 
@@ -113,7 +113,7 @@ class UsersController extends BaseController {
 		$user->delete();
 
 		Session::flash('message', 'Successfully deleted the user!');
-		return Redirect::to('admin/users');
+		return Redirect::to('admin.users.index');
 	}
 
 }

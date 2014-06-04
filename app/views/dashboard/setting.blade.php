@@ -15,12 +15,12 @@
 	@endif
   </div>
 
-	{{ Form::open(array('url'=>'admin/setting', 'class'=>'form-horizontal')) }}
+	{{ Form::open(array('route'=>'admin-setting-update', 'class'=>'form-horizontal')) }}
 
 	<div class="form-group">
 		{{ Form::label('site_name', 'Nama Website', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
-			{{ Form::text('site_name', Config::get('setting.site_name'), array('class'=>'form-control input-sm', 'id'=>'site_name', 'placeholder'=>'Nama Website', 'required', 'autofocus')) }}
+			{{ Form::text('site_name', Config::get('setting.site_name'), array('class'=>'form-control input-sm', 'id'=>'site_name', 'placeholder'=>'Nama Website', 'required')) }}
 		<span class="help-block">{{ $errors->first('site_name') }}</span>
 		</div>
 	</div>

@@ -68,7 +68,7 @@ class SettingController extends BaseController {
 			DB::table('setting')->where('key','=','mail_username')->update(array('value'=>Input::get('mail_username')));
 			DB::table('setting')->where('key','=','mail_password')->update(array('value'=>Input::get('mail_password')));
 
-			return Redirect::to('admin/setting')->with('message', 'Setting update succefully!');
+			return Redirect::route('admin-setting-index')->with('message', 'Setting update succefully!');
 		}
 	}
 

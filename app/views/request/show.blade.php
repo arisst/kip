@@ -10,13 +10,13 @@
   <!-- Default panel contents -->
   <div class="panel-heading">Detail Request</div>
   <div class="panel-body">
-  <a href="{{ URL::to('admin/requests') }}" type="button" class="btn btn-default hidden-print btn-sm {{ Request::is('admin/requests') ? 'active' : '' }}">
-    <span class="glyphicon glyphicon-th-list"></span> List Request
-  </a>
-  <a href="{{ URL::to('admin/requests/'.$request->id.'?act=accept') }}" type="button" class="btn btn-primary hidden-print btn-sm {{ (Input::get('act')=='accept') ? 'active' : '' }}">
+ <a href="{{ URL::route('admin.requests.index') }}" type="button" class="btn btn-default hidden-print btn-sm {{ (Route::currentRouteName()=='admin.requests.index') ? 'active' : '' }}">
+  <span class="glyphicon glyphicon-th-list"></span> List Request
+</a>
+  <a href="{{ URL::route('admin.requests.show',$request->id).'?act=accept' }}" type="button" class="btn btn-primary hidden-print btn-sm {{ (Input::get('act')=='accept') ? 'active' : '' }}">
     <span class="glyphicon glyphicon-th-list"></span> Accept
   </a>
-  <a href="{{ URL::to('admin/requests/'.$request->id.'?act=reject') }}" type="button" class="btn btn-danger hidden-print btn-sm {{ (Input::get('act')=='reject') ? 'active' : '' }}">
+  <a href="{{ URL::route('admin.requests.show',$request->id).'?act=reject' }}" type="button" class="btn btn-danger hidden-print btn-sm {{ (Input::get('act')=='reject') ? 'active' : '' }}">
     <span class="glyphicon glyphicon-th-list"></span> Reject
   </a>
 
@@ -24,8 +24,11 @@
 
 @if(Input::has('act'))
 
-  {{ Form::model($request, array('route' => array('admin.requests.update', $request->id), 'method' => 'PUT', 'class'=>'form-horizontal')) }}
-
+  {{ Form::open(array('route' => 'admin.responses.store', 'class'=>'form-horizontal')) }}
+  {{ Form::hidden('request_id',$request->id) }}
+  @if(Input::get('act')=='accept') {{Form::hidden('request_status','1')}}
+  @elseif(Input::get('act')=='reject') {{Form::hidden('request_status','2')}}
+  @endif
   <div class="form-group">
     {{ Form::label('title', 'Subject', array('class'=>'col-sm-2 control-label')) }}
     <div class="input-group col-xs-6">

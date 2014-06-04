@@ -84,7 +84,7 @@ class FrontController extends BaseController
 			$requests->save();
 
 			Session::flash('message', 'Request informasi berhasil');
-			return Redirect::to('/');
+			return Redirect::route('home');
 		}
 	}
 

@@ -24,7 +24,7 @@ else if('profile'==$act)
   <div class="panel-heading">{{ $head }}</div>
   <div class="panel-body">
   	@if('profile'!=$act)
-		@include('action', array('p' => 'User', 'l'=>'admin/users', 'a'=>'active'))
+		@include('action', array('p' => 'User', 'l'=>'admin.users', 'a'=>'active'))
 	@endif
   </div>
 	@if (Session::has('message'))
@@ -34,9 +34,9 @@ else if('profile'==$act)
 		</div>
 	@endif
 @if('add'==$act)
-	{{ Form::open(array('url'=>'admin/users', 'class'=>'form-horizontal')) }}
+	{{ Form::open(array('route'=>'admin.users.store', 'class'=>'form-horizontal')) }}
 @elseif('profile'==$act)
-	{{ Form::model($profile, array('url' => 'admin/profile', 'method' => 'POST', 'class'=>'form-horizontal')) }}
+	{{ Form::model($profile, array('route' => 'admin-profile-submit', 'method' => 'POST', 'class'=>'form-horizontal')) }}
 @elseif('edit'==$act)
 	{{ Form::model($user, array('route' => array('admin.users.update', $user->id), 'method' => 'PUT', 'class'=>'form-horizontal')) }}
 @endif

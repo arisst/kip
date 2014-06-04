@@ -66,7 +66,7 @@ class InformationsController extends BaseController {
 			$informations->save();
 
 			Session::flash('message', 'Successfully created information!');
-			return Redirect::to('admin/informations');
+			return Redirect::route('admin.informations.index');
 		}
 	}
 
@@ -128,17 +128,18 @@ class InformationsController extends BaseController {
 			$informations->save();
 
 			Session::flash('message', 'Successfully updated information!');
-			return Redirect::to('admin/informations');
+			return Redirect::route('admin.informations.index');
 		}
 	}
 
 	public function destroy($id)
 	{
 		$informations = Informations::find($id);
+		File::delete(public_path().'/uploads/'.$informations->attachment);
 		$informations->delete();
 
 		Session::flash('message', 'Successfully deleted the informations!');
-		return Redirect::to('admin/informations');
+		return Redirect::route('admin.informations.index');
 	}
 
 
