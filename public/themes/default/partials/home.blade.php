@@ -2,25 +2,26 @@
             <div id="banner_section">
                 <div class="flexslider">
                     <ul class="slides">
-                        <li> <img src="{{ Theme::asset()->url('img/lm_banner_1.jpg') }}" />
-                  
-
-                        </li>
-                        <li> <img src="{{ Theme::asset()->url('img/lm_banner_2.jpg') }}" />
-                          
-
-                        </li>
-                        <li> <img src="{{ Theme::asset()->url('img/lm_banner_3.jpg') }}" /> </li>
+                        <!-- <li> <img src="{{ Theme::asset()->url('img/lm_banner_1.jpg') }}" /></li>
+                        <li> <img src="{{ Theme::asset()->url('img/lm_banner_2.jpg') }}" /></li>
+                        <li> <img src="{{ Theme::asset()->url('img/lm_banner_3.jpg') }}" /></li>
+                         -->
+                        <li> <img src="http://placehold.it/697x435" /></li>
+                        <li> <img src="http://placehold.it/697x435" /></li>
+                        <li> <img src="http://placehold.it/697x435" /></li>
                     </ul>
                 </div>
                 <div class="promo_banner">
-                    <div class="home_banner"><a href="#"><img src="{{ Theme::asset()->url('img/promo_hb_1.jpg') }}"></a></div>
+                    <!-- <div class="home_banner"><a href="#"><img src="{{ Theme::asset()->url('img/promo_hb_1.jpg') }}"></a></div>
                     <div class="home_banner"><a href="#"><img src="{{ Theme::asset()->url('img/promo_hb_2.jpg') }}"></a></div>
-                    <div class="home_banner"><a href="#"><img src="{{ Theme::asset()->url('img/promo_hb_3.jpg') }}"></a></div>
+                    <div class="home_banner"><a href="#"><img src="{{ Theme::asset()->url('img/promo_hb_3.jpg') }}"></a></div> -->
+                    <div class="home_banner"><a href="#"><img src="http://placehold.it/278x141"></a></div>
+                    <div class="home_banner"><a href="#"><img src="http://placehold.it/278x141"></a></div>
+                    <div class="home_banner"><a href="#"><img src="http://placehold.it/278x141"></a></div>
                 </div>
             </div>
 
-            <div class="products_list products_slider">
+            <!-- <div class="products_list products_slider">
                 <h2 class="sub_title">New Products</h2>
                 <ul id="first-carousel" class="first-and-second-carousel jcarousel-skin-tango">
                     <li> <a class="product_image"><img src="{{ Theme::asset()->url('img/pr_l_1.jpg') }}"/></a>
@@ -139,5 +140,5 @@
                         <button class="button" title="" type="submit"></button>
                     </form>
                 </div>
-            </div>
+            </div> -->
         </section>

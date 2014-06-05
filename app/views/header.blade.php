@@ -1,6 +1,7 @@
 <html>
 <head>
-  <title>@yield('title')</title>
+  <title> @yield('title') | Administrator KIP</title>
+
   {{HTML::style('assets/bootstrap/css/bootstrap.min.css')}}    
   {{HTML::script('assets/bootstrap/js/jquery.min.js')}}    
   {{HTML::script('assets/bootstrap/js/bootstrap.min.js')}}    

@@ -5,7 +5,25 @@ class ResponsesController extends \BaseController {
 	
 	public function index()
 	{
-		//
+		$perpage = Config::get('setting.per_page');
+		if(Input::get('search'))
+		{
+			$term = Input::get('search');
+			$query = DB::table('responses')
+				->join('users','responses.user_id','=','users.id')
+				->join('requests','responses.request_id','=','requests.id')
+				->select(DB::raw('responses.*, users.name, requests.status'))
+				->where('users.name', 'LIKE', '%'.$term.'%')
+				->orWhere('responses.title', 'LIKE', '%'.$term.'%')
+				->orWhere('responses.description', 'LIKE', '%'.$term.'%');
+			$results = $query->paginate($perpage);
+			return View::make('response.index')->with('responses', $results)->with('keyword', $term);
+		}
+		else
+		{
+			$responses = Responses::getResponse($perpage);
+			return View::make('response.index')->with('responses', $responses);
+		}	
 	}
 
 	public function create()
@@ -37,7 +55,8 @@ class ResponsesController extends \BaseController {
 
 	public function show($id)
 	{
-		//
+		$responses = Responses::findResponse($id);
+		return View::make('response.show')->with('response', $responses);
 	}
 
 	public function edit($id)
@@ -52,7 +71,11 @@ class ResponsesController extends \BaseController {
 
 	public function destroy($id)
 	{
-		//
+		$response = Responses::find($id);
+		$response->delete();
+
+		Session::flash('message', 'Successfully deleted the response!');
+		return Redirect::route('admin.responses.index');
 	}
 
 

@@ -6,6 +6,7 @@
 @section('content')
 
 @foreach ($request as $request)
+
 <div class="panel panel-primary">
   <!-- Default panel contents -->
   <div class="panel-heading">Detail Request</div>
@@ -13,12 +14,14 @@
  <a href="{{ URL::route('admin.requests.index') }}" type="button" class="btn btn-default hidden-print btn-sm {{ (Route::currentRouteName()=='admin.requests.index') ? 'active' : '' }}">
   <span class="glyphicon glyphicon-th-list"></span> List Request
 </a>
+@if($request->status==0)
   <a href="{{ URL::route('admin.requests.show',$request->id).'?act=accept' }}" type="button" class="btn btn-primary hidden-print btn-sm {{ (Input::get('act')=='accept') ? 'active' : '' }}">
     <span class="glyphicon glyphicon-th-list"></span> Accept
   </a>
   <a href="{{ URL::route('admin.requests.show',$request->id).'?act=reject' }}" type="button" class="btn btn-danger hidden-print btn-sm {{ (Input::get('act')=='reject') ? 'active' : '' }}">
     <span class="glyphicon glyphicon-th-list"></span> Reject
   </a>
+@endif
 
 <br><br>
 
@@ -56,9 +59,27 @@
 
 @endif
 
+
+<?php
+  switch ($request->status) {
+    case '0':
+      $headerclass = 'list-group-item-danger';
+      break;
+    case '1':
+      $headerclass = 'list-group-item-success';
+      break;
+    case '2':
+      $headerclass = 'list-group-item-warning';
+      break;
+    default:
+      $headerclass = '';
+      break;
+  }
+?>
+
 <div class="col-md-6">
     <ul class="list-group">
-      <li class="list-group-item list-group-item-info"><b>Detail Request</b></li>
+      <li class="list-group-item {{ $headerclass }}"><b>Detail Request</b></li>
       <li class="list-group-item">Informasi : <b>{{$request->ititle}} 
       @if($request->ifile)
       {{HTML::link('uploads/'.$request->ifile,'File',array('target'=>'_blank'))}}
@@ -68,9 +89,9 @@
       <li class="list-group-item"> <blockquote> <p> {{$request->title}} </p> <footer>{{$request->description}}</footer></blockquote></li>
       <li class="list-group-item">Tanggal : <b>{{$request->added_on}}</b></li>
       <li class="list-group-item">Status : <b> 
-      @if('0'==$request->status) {{'Pending'}}
-      @elseif('1'==$request->status) {{'Accepted'}}
-      @elseif('2'==$request->status) {{'Rejected'}}
+      @if('0'==$request->status) <span class="label label-danger"> {{'Pending'}} </span>
+      @elseif('1'==$request->status) <span class="label label-success"> {{'Accepted'}} </span>
+      @elseif('2'==$request->status) <span class="label label-warning"> {{'Rejected'}} </span>
       @endif
       </b>
       </li>

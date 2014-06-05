@@ -12,7 +12,10 @@
 	    </ul>
 	</div>
 	<!--Logo Starts-->
-	<h1 class="logo"> <a href="{{URL::to('/')}}"><img src="{{Theme::asset()->url('img/logo.png')}}" /></a> </h1>
+	<h1 class="logo"> <a href="{{URL::to('/')}}">
+	<!-- <img src="{{Theme::asset()->url('img/logo.png')}}" /></a>  -->
+	<img src="http://placehold.it/145x74" /></a> 
+	</h1>
 	<!--Logo Ends-->
 	<!--Responsive NAV-->            
 	<div class="responsive-nav" style="display:none;">

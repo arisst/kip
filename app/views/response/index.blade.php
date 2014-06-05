@@ -1,23 +1,23 @@
 @extends('layout')
 @section('title')
-	List Request
+	List Response
 @stop
 
 @section('content')
 
 <div class="panel panel-primary">
   <!-- Default panel contents -->
-  <div class="panel-heading">Request List</div>
+  <div class="panel-heading">Response List</div>
   <div class="panel-body">
 
-<a href="{{ URL::route('admin.requests.index') }}" type="button" class="btn btn-default hidden-print btn-sm {{ (Route::currentRouteName()=='admin.requests.index') ? 'active' : '' }}">
-  <span class="glyphicon glyphicon-th-list"></span> List Request
+<a href="{{ URL::route('admin.requests.index') }}" type="button" class="btn btn-default hidden-print btn-sm {{ (Route::currentRouteName()=='admin.responses.index') ? 'active' : '' }}">
+  <span class="glyphicon glyphicon-th-list"></span> List Response
 </a>
 
-    {{ Form::open(array('route'=>'admin.requests.index', 'method'=>'get', 'class'=>'navbar-form navbar-right', 'role'=>'form')) }}
+    {{ Form::open(array('route'=>'admin.responses.index', 'method'=>'get', 'class'=>'navbar-form navbar-right', 'role'=>'form')) }}
     <div class="form-group">
 	    {{ Form::text('search', (isset($keyword)) ? $keyword : '', array('class'=>'form-control input-sm', 'placeholder'=>'Search...','autofocus'))}}
-	    <a href="{{ URL::route('admin.requests.index') }}" type="button" class="btn hidden-print btn-default btn-sm">
+	    <a href="{{ URL::route('admin.responses.index') }}" type="button" class="btn hidden-print btn-default btn-sm">
 		  <span class="glyphicon glyphicon-refresh"></span> Reset
 		</a>
     </div>
@@ -43,8 +43,8 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php $i=$requests->getFrom(); ?>
-			@foreach($requests as $key => $value)
+			<?php $i=$responses->getFrom(); ?>
+			@foreach($responses as $key => $value)
 				<tr>
 					<td>{{ $i }}</td>
 					<td>{{ $value->name }}</td>
@@ -59,12 +59,12 @@
 					</td>
 					<td>{{$value->added_on}}</td>
 					<td class="hidden-print">
-						{{ Form::open(array('route' => array('admin.requests.destroy', $value->id), 'style' => 'margin-bottom:0')) }}
-							<a class="btn btn-xs btn-success" href="{{ URL::route('admin.requests.show', $value->id) }}">
+						{{ Form::open(array('route' => array('admin.responses.destroy', $value->id), 'style' => 'margin-bottom:0')) }}
+							<a class="btn btn-xs btn-success" href="{{ URL::route('admin.responses.show', $value->id) }}">
 								<span class="glyphicon glyphicon-eye-open"></span>View
 							</a>
 							{{ Form::hidden('_method', 'DELETE') }}
-							<button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Delete this data?');">
+							<button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Delete data ini tidak akan mengubah status request!. Delete this data?');">
 								<span class="glyphicon glyphicon-trash"></span> Delete
 							</button>
 						{{ Form::close() }}
@@ -76,9 +76,9 @@
 	</table>
 	<center class="hidden-print">
 	@if(isset($keyword))
-	{{ $requests->appends(array('search' => $keyword))->links() }}
+	{{ $responses->appends(array('search' => $keyword))->links() }}
 	@else
-	{{ $requests->links() }}
+	{{ $responses->links() }}
 	@endif
 	</center>
 </div>

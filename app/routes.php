@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
-
 Route::get('/', array('as'=>'home','uses'=>'FrontController@showIndex'));
 Route::get('informasi/{category}', array('as'=>'information-list','uses'=>'FrontController@showList'));
 Route::get('informasi/{category}/{slug}', array('as'=>'information-detail','uses'=>'FrontController@showDetail'));
@@ -28,15 +17,17 @@ Route::get('account/activate/{code}', array(
 ));
 
 //User Route
-Route::group(array('before'=>'auth'), function(){
-	// Route::get('download/{id}', array('as'=>'information-download','uses'=>'FrontController@getDownload'));
+Route::group(array('before'=>'auth'), function()
+{
 	Route::get('request/{id}-{slug}', array('as'=>'information-request','uses'=>'FrontController@showRequest'));
 	Route::post('request/{id}-{slug}', array('as'=>'request-post','uses'=>'FrontController@postRequest'));
 });
 
 //Admin Route
-Route::group(array('prefix'=>'admin', 'before'=>'auth.admin'), function(){
-	Route::get('/', array('as'=>'admin-index',function(){
+Route::group(array('prefix'=>'admin', 'before'=>'auth.admin'), function()
+{
+	Route::get('/', array('as'=>'admin-index',function()
+	{
 		return View::make('dashboard.index');
 	}));
 	Route::resource('users', 'UsersController');
