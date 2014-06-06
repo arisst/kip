@@ -44,13 +44,25 @@ class FrontController extends BaseController
 	{
 		$information = Informations::where('slug', '=', $slug)->get();
 		$this->theme->setDetail($information);
+
+		if(Auth::check())
+		{
+			foreach ($information as $key);
+			$request = Requests::where('information_id','=',$key->id)
+								->where('user_id','=',Auth::user()->id)
+								->get();
+			$this->theme->setRequest($request);
+		}
+		
 		$view = array('page'=>'detail', 'subtitle'=>' - ');
 		return $this->theme->of('front.home', $view)->render();
 	}
 
 	public function showRequest($id, $slug)
 	{
-		$information = Informations::where('id', '=', $id)->where('slug', '=', $slug)->get();
+		$information = Informations::where('id', '=', $id)
+									->where('slug', '=', $slug)
+									->get();
 		$this->theme->setRequest($information);
 		foreach ($information as $key);
 		
@@ -88,13 +100,23 @@ class FrontController extends BaseController
 		}
 	}
 
-	/*public function getDownload($id)
+	public function listRequest()
 	{
+		$request = Requests::listRequest();
+		$this->theme->setRequest($request);
+
+		$view = array('page'=>'request_list','subtitle'=>'My Request | ');
+		return $this->theme->of('front.home', $view)->render();
+	}
+
+	public function getDownload()
+	{
+		$id = Input::get('information_id');
 		$information = Informations::where('id', '=', $id)->get();
 		foreach ($information as $key);
 
 		return Response::download(public_path().'/uploads/'.$key->attachment, Str::slug($key->title));
-	}*/
+	}
 
 
 }

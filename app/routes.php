@@ -21,6 +21,10 @@ Route::group(array('before'=>'auth'), function()
 {
 	Route::get('request/{id}-{slug}', array('as'=>'information-request','uses'=>'FrontController@showRequest'));
 	Route::post('request/{id}-{slug}', array('as'=>'request-post','uses'=>'FrontController@postRequest'));
+	Route::get('profile',array('as'=>'user-profile-form','uses'=>'AccountController@showProfile'));
+	Route::post('profile',array('before'=>'csrf','as'=>'user-profile-form','uses'=>'AccountController@doProfile'));
+	Route::get('request',array('as'=>'user-request-list','uses'=>'FrontController@listRequest'));
+	Route::post('download',array('before'=>'csrf','as'=>'user-download','uses'=>'FrontController@getDownload'));
 });
 
 //Admin Route

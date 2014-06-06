@@ -116,14 +116,23 @@ class AccountController extends FrontController {
 	public function showProfile()
 	{
 		$profile = User::find(Auth::user()->id);
-		return View::make('user.form')->with('profile', $profile)->with('act', 'profile');
+		if(Auth::user()->level==1 || Auth::user()->level==2) //Admin
+		{
+			return View::make('user.form')->with('profile', $profile)->with('act', 'profile');
+		}
+		else
+		{
+			$this->theme->setProfile($profile);
+			$view = array('page'=>'profile', 'subtitle'=>'Profile | ');
+			return $this->theme->of('front.home', $view)->render();
+		}
 	}
 
 	public function doProfile()
 	{
 		$rules = array(
 			'name' => 'required',
-			'email' => 'required|email|unique:users,email,'.Auth::user()->id,
+			'email' => 'sometimes|required|email|unique:users,email,'.Auth::user()->id,
 			'password' => 'min:6|same:passconf'
 		);
 		$messages = array(
@@ -142,7 +151,18 @@ class AccountController extends FrontController {
 		{
 			$user = User::find(Auth::user()->id);
 			$user->name = Input::get('name');
-			$user->email = Input::get('email');
+
+			if(Auth::user()->level==1 || Auth::user()->level==2) //Admin
+			{
+				$user->email = Input::get('email');
+			}
+			else
+			{
+				$user->phone = Input::get('phone');
+				$user->address = Input::get('address');
+				$user->ktp = Input::get('ktp');
+			}
+
 			if(Input::get('password')) $user->password = Hash::make(Input::get('password'));
 			$user->save();
 

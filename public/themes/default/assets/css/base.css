@@ -333,6 +333,15 @@ h2.sub_title{ font-size:18px; color:#312e2b; font-weight:normal; padding-bottom:
 p.error{
 	color: red;
 }
+p.warning{
+	color: rgb(167, 134, 9);
+}
+p.success{
+	color: green;
+}
+p.info{
+	color: blue;
+}
 
 /*-----------------------------------COLOR THEME HERE*/
 .navigation_container, .products_list li .product_info, ul.sub_menu > li > ul > li:hover, #product_detail, .col_right .block-title{ border-bottom-color:#f38256;}

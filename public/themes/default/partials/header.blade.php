@@ -3,8 +3,8 @@
 		<div class="language_switch"> <a target="_blank" class="active" href="http://airputih.or.id" title="Aplikasi Keterbukaan Informasi Publik">{{Config::get('setting.site_name')}}</a></div>
 	    <ul class="top_links">
 			@if (Auth::check())
-		        <li class="{{ (Route::currentRouteName()=='profile') ? 'highlight' : '' }}"><a href="{{URL::to('profile')}}">My Account</a></li>
-		        <li class="{{ (Route::currentRouteName()=='profile') ? 'highlight' : '' }}"><a href="{{URL::to('profile')}}">Profile</a></li>
+		        <li class="{{ (Route::currentRouteName()=='user-request-list') ? 'highlight' : '' }}"><a href="{{URL::route('user-request-list')}}">My Request</a></li>
+		        <li class="{{ (Route::currentRouteName()=='user-profile-form') ? 'highlight' : '' }}"><a href="{{URL::route('user-profile-form')}}">Profile</a></li>
 		        <li class="{{ (Route::currentRouteName()=='logout') ? 'highlight' : '' }}"><a href="{{URL::route('logout')}}">Logout</a></li>
 		    @else
 		        <li class="{{ (Route::currentRouteName()=='login-form') ? 'highlight' : '' }}"><a href="{{URL::route('login-form')}}#go">Login</a></li>

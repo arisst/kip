@@ -25,4 +25,14 @@ class Requests extends Eloquent
 			->where('requests.id','=',$id)
 			->get();
 	}
+
+	public static function listRequest() //FrontEnd
+	{
+		return DB::table('requests')
+			->join('informations','requests.information_id','=','informations.id')
+			->select(DB::raw('requests.*, informations.category, informations.title as ititle, informations.slug, informations.id as iid'))
+			->where('requests.user_id','=',Auth::user()->id)
+			->orderBy('requests.added_on','desc')
+			->get();
+	}
 }
