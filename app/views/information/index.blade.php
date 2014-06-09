@@ -35,7 +35,7 @@
 				<th>Category</th>
 				<th>Title</th>
 				<th>Description</th>
-				<th>Attachment</th>
+				<!-- <th>Attachment</th> -->
 				<th class="hidden-print">Actions</th>
 			</tr>
 		</thead>
@@ -47,7 +47,7 @@
 					<td>{{ $value->category }}</td>
 					<td>{{ Str::limit($value->title, 30, '...') }}</td>
 					<td>{{ Str::limit($value->description, 50, '...') }}</td>
-					<td> @if($value->attachment) {{HTML::link('uploads/'.$value->attachment, 'download')}} @endif</td>
+					<!-- <td> @if($value->attachment) {{HTML::link('uploads/'.$value->attachment, 'download')}} @endif</td> -->
 					<td class="hidden-print">
 						{{ Form::open(array('route' => array('admin.informations.destroy',$value->id), 'style' => 'margin-bottom:0')) }}
 							<a class="btn btn-xs btn-success" href="{{ URL::route('admin.informations.show',$value->id) }}">

@@ -2,22 +2,15 @@
 
 class SettingController extends BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		return View::make('dashboard.setting');
-		// echo Config::update(array('a'));
 	}
 
 
 	
 	public function update()
 	{
-		// dd(Input::except('_token'));
 		$rules = array(
 			'site_name'=>'required',
 			'site_theme'=>'required',
@@ -68,7 +61,7 @@ class SettingController extends BaseController {
 			DB::table('setting')->where('key','=','mail_username')->update(array('value'=>Input::get('mail_username')));
 			DB::table('setting')->where('key','=','mail_password')->update(array('value'=>Input::get('mail_password')));
 
-			return Redirect::route('admin-setting-index')->with('message', 'Setting update succefully!');
+			return Redirect::back()->with('message', 'Setting update succefully!');
 		}
 	}
 

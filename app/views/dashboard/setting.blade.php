@@ -83,7 +83,8 @@
 	<div class="form-group">
 		{{ Form::label('mail_password', 'Mail Password', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
-			{{ Form::text('mail_password', Config::get('setting.mail_password'), array('class'=>'form-control input-sm', 'id'=>'mail_password', 'placeholder'=>'Mail Password')) }}
+			{{ Form::input('password','mail_password', Config::get('setting.mail_password'), array('class'=>'form-control input-sm', 'id'=>'mail_password', 'placeholder'=>'Mail Password')) }}
+			
 			<span class="help-block">{{ $errors->first('mail_password') }}</span>
 		</div>
 	</div>
@@ -97,4 +98,20 @@
 
 	{{ Form::close() }}
 </div>
+{{HTML::script('assets/bootstrap/js/password.js')}}
+<script>
+    $(function() {
+        $('#mail_password').password().on('show.bs.password', function(e) {
+            $('#eventLog').text('On show event');
+            $('#methods').prop('checked', true);
+        }).on('hide.bs.password', function(e) {
+                    $('#eventLog').text('On hide event');
+                    $('#methods').prop('checked', false);
+                });
+        $('#methods').click(function() {
+            $('#password').password('toggle');
+        });
+    });
+</script>
+
 @stop

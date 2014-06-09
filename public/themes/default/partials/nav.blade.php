@@ -1,6 +1,6 @@
 <nav>
             <ul class="primary_nav">
-            <li class="{{ (Route::currentRouteName()=='home') ? 'active' : '' }}"><a href="/">HOME</a></li>
+            <li class="{{ (Route::currentRouteName()=='home') ? 'active' : '' }}"><a href="{{URL::route('home')}}">HOME</a></li>
 
               @foreach (Theme::getMenu() as $element)
                   <li class="{{(Request::is($element['head'].'/*')) ? 'active' : ''}}"> {{HTML::link('#', $element['head'])}}

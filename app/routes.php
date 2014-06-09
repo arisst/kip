@@ -43,3 +43,9 @@ Route::group(array('prefix'=>'admin', 'before'=>'auth.admin'), function()
 	Route::get('setting', array('as'=>'admin-setting-index','uses'=>'SettingController@index'));
 	Route::post('setting', array('as'=>'admin-setting-update','uses'=>'SettingController@update'));
 });
+
+//Api Route
+Route::group(array('prefix'=>'api/v1', /*'before'=>'auth'*/), function ()
+{
+	Route::resource('informations', 'ApiController');
+});

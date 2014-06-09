@@ -13,7 +13,7 @@
           {{$element->description}}
         </p>
         <div class="add_to_buttons">
-        <?php foreach(Theme::getRequest() as $key);?>
+        <?php if(Auth::check()) foreach(Theme::getRequest() as $key);?>
       @if(isset($key))
         @if($key->status==1)
           {{Form::open(array('route'=>'user-download'))}}

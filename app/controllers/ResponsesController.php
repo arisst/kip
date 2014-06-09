@@ -26,11 +26,6 @@ class ResponsesController extends \BaseController {
 		}	
 	}
 
-	public function create()
-	{
-		//
-	}
-
 	public function store()
 	{
 		$request_id = Input::get('request_id');
@@ -59,23 +54,13 @@ class ResponsesController extends \BaseController {
 		return View::make('response.show')->with('response', $responses);
 	}
 
-	public function edit($id)
-	{
-		//
-	}
-
-	public function update($id)
-	{
-		
-	}
-
 	public function destroy($id)
 	{
 		$response = Responses::find($id);
 		$response->delete();
 
 		Session::flash('message', 'Successfully deleted the response!');
-		return Redirect::route('admin.responses.index');
+		return Redirect::back();
 	}
 
 

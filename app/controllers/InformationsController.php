@@ -10,13 +10,14 @@ class InformationsController extends BaseController {
 			$term = Input::get('search');
 			$query = DB::table('informations');
 				$query->where('title', 'LIKE', '%'.$term.'%')
-				->orWhere('description', 'LIKE', '%'.$term.'%');
+				->orWhere('description', 'LIKE', '%'.$term.'%')
+				->orderBy('updated_at','desc');
 			$results = $query->paginate($perpage);
 			return View::make('information.index')->with('informations', $results)->with('keyword', $term);
 		}
 		else
 		{
-			$informations = Informations::paginate($perpage);
+			$informations = Informations::orderBy('updated_at','desc')->paginate($perpage);
 			return View::make('information.index')->with('informations', $informations);
 		}
 	}
@@ -72,7 +73,8 @@ class InformationsController extends BaseController {
 
 	public function show($id)
 	{
-		//
+		$information = Informations::find($id);
+		return View::make('information.show')->with('information', $information);
 	}
 
 	public function edit($id)
@@ -139,7 +141,7 @@ class InformationsController extends BaseController {
 		$informations->delete();
 
 		Session::flash('message', 'Successfully deleted the informations!');
-		return Redirect::route('admin.informations.index');
+		return Redirect::back();
 	}
 
 

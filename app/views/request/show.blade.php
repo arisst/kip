@@ -21,6 +21,11 @@
   <a href="{{ URL::route('admin.requests.show',$request->id).'?act=reject' }}" type="button" class="btn btn-danger hidden-print btn-sm {{ (Input::get('act')=='reject') ? 'active' : '' }}">
     <span class="glyphicon glyphicon-th-list"></span> Reject
   </a>
+  @if(Input::has('act'))
+  <a href="{{ URL::previous() }}" type="button" class="btn btn-default hidden-print btn-sm">
+    <span class="glyphicon glyphicon-th-list"></span> Back
+  </a>
+  @endif
 @endif
 
 <br><br>
