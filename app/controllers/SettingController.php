@@ -59,7 +59,7 @@ class SettingController extends BaseController {
 			DB::table('setting')->where('key','=','mail_host')->update(array('value'=>Input::get('mail_host')));
 			DB::table('setting')->where('key','=','mail_port')->update(array('value'=>Input::get('mail_port')));
 			DB::table('setting')->where('key','=','mail_username')->update(array('value'=>Input::get('mail_username')));
-			DB::table('setting')->where('key','=','mail_password')->update(array('value'=>Input::get('mail_password')));
+			DB::table('setting')->where('key','=','mail_password')->update(array('value'=>Crypt::encrypt(Input::get('mail_password'))));
 
 			return Redirect::back()->with('message', 'Setting update succefully!');
 		}

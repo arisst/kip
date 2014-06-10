@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => Config::get('setting.mail_password'),
+	'password' => Crypt::decrypt(Config::get('setting.mail_password')),
 
 	/*
 	|--------------------------------------------------------------------------

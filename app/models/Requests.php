@@ -30,7 +30,8 @@ class Requests extends Eloquent
 	{
 		return DB::table('requests')
 			->join('informations','requests.information_id','=','informations.id')
-			->select(DB::raw('requests.*, informations.category, informations.title as ititle, informations.slug, informations.id as iid'))
+			->leftJoin('responses','responses.request_id','=','requests.id')
+			->select(DB::raw('requests.*, informations.category, informations.title as ititle, informations.slug, informations.id as iid, responses.title rtitle, responses.description rdescription, responses.added_on rtanggal'))
 			->where('requests.user_id','=',Auth::user()->id)
 			->orderBy('requests.added_on','desc')
 			->get();

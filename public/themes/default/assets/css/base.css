@@ -199,7 +199,7 @@ ul.breadcrumb li a{ color:#bdbdbd; text-decoration:none;}
 #shopping-cart-table tr td a.pr_name { display:block; font-weight:bold; font-size:14px; color:#544f4b; text-decoration:none; text-transform:uppercase; padding-bottom:8px;}
 #shopping-cart-table tr td span.price{ color:#544f4b; font-weight:bold; font-size:13px;}
 #shopping-cart-table tr td input.qty_box{ width:50px; border:solid 1px #D7D7D7; background:#fff; text-align:center; font-weight:bold; padding:3px;}
-#shopping-cart-table tr td.vline{ background:url(../img/vline.png) no-repeat left center;}
+#shopping-cart-table tr td.vline{ background:url(../img/vline.png) repeat-y left center;}
 #shopping-cart-table tr td a.remove{ display:block; width:17px; height:17px; background:url(../img/remove.png) no-repeat -1px -1px #fff; margin:auto}
 #shopping-cart-table tr td a.remove:hover{ background-position:-1px -18px; -moz-transition:all 0.2s ease-out 0s; -webkit-transition: all 0.2s ease-out;}
 #shopping-cart-table tr td a.edit{color:#544F4B;}
@@ -342,6 +342,10 @@ p.success{
 p.info{
 	color: blue;
 }
+span.small{
+	color: #a2a2a2;
+}
+
 
 /*-----------------------------------COLOR THEME HERE*/
 .navigation_container, .products_list li .product_info, ul.sub_menu > li > ul > li:hover, #product_detail, .col_right .block-title{ border-bottom-color:#f38256;}

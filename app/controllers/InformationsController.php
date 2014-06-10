@@ -33,7 +33,7 @@ class InformationsController extends BaseController {
 			'category' => 'required',
 			'title' => 'required|unique:informations',
 			'description' => 'required',
-			'attachment' => 'max:2000000|mimes:jpeg,bmp,png,pdf,zip,rar,doc,docx,odt,ods,xls,xlsx,ppt',
+			'attachment' => 'mimes:jpeg,bmp,png,pdf,zip,rar,doc,docx,odt,ods,xls,xlsx,ppt',
 		);
 		$messages = array(
 			'required' => ':attribute harus diisi!',

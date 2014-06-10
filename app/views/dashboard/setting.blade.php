@@ -83,8 +83,12 @@
 	<div class="form-group">
 		{{ Form::label('mail_password', 'Mail Password', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
-			{{ Form::input('password','mail_password', Config::get('setting.mail_password'), array('class'=>'form-control input-sm', 'id'=>'mail_password', 'placeholder'=>'Mail Password')) }}
-			
+		@if(Config::get('setting.mail_password'))
+			{{ Form::input('password','mail_password', Crypt::decrypt(Config::get('setting.mail_password')), array('class'=>'form-control input-sm', 'id'=>'mail_password', 'placeholder'=>'Mail Password')) }}
+		@else
+			{{ Form::input('password','mail_password', '', array('class'=>'form-control input-sm', 'id'=>'mail_password', 'placeholder'=>'Mail Password')) }}
+		
+		@endif
 			<span class="help-block">{{ $errors->first('mail_password') }}</span>
 		</div>
 	</div>

@@ -8,17 +8,30 @@
           <table class="data-table cart-table" id="shopping-cart-table" cellpadding="0" cellspacing="0">
             <tr>
               <th colspan="1">Informasi</th>
-              <th class="align_center" width="6%">Tanggal</th>
+              <!-- <th class="align_center" width="6%">Tanggal</th> -->
               <th class="align_center" width="12%">Status</th>
               <th class="align_center" width="10%">File</th>
             </tr>
         @foreach (Theme::getRequest() as $key)
             <tr>
-              <td class="align_left" width="44%">
-                <a class="pr_name" href="{{URL::to('informasi/'.Str::slug($key->category).'/'.$key->slug)}}">{{$key->ititle}}</a>
-                <span class="pr_info"> {{$key->title}} </span>
+              <td class="align_left" width="44%" id="{{$key->id}}" style="cursor:pointer;">
+                <!-- <a class="pr_name" href="{{URL::to('informasi/'.Str::slug($key->category).'/'.$key->slug)}}">{{$key->ititle}}</a> -->
+                <a class="pr_name" id="{{$key->id}}">{{$key->ititle}}</a>
+
+                <span class="pr_info"> {{$key->title}} </span> <span class="small"> {{$key->added_on}}</span>
+                {{--HTML::link('#'.$key->id,'Detail', array('id'=>$key->id))--}}
+                <div id="request{{$key->id}}" style="display:none;">
+                {{$key->description}}<br><br>
+                @if('0'==$key->status) <p class="warning"> {{'Menunggu'}} </p>
+                @elseif('1'==$key->status) <p class="success"> {{'Diterima'}} </p>
+                @elseif('2'==$key->status) <p class="error"> {{'Ditolak'}} </p>
+                @endif 
+                <br>
+                   <span class="pr_info">{{$key->rtitle}}</span><span class="small"> {{$key->rtanggal}}</span><br>
+                  {{$key->rdescription}}
+                </div>
               </td>
-              <td class="align_center vline">{{$key->added_on}}</td>
+              <!-- <td class="align_center vline">{{$key->added_on}}</td> -->
               <td class="align_center vline">
                 @if('0'==$key->status) <p class="warning"> {{'Menunggu'}} </p>
                 @elseif('1'==$key->status) <p class="success"> {{'Diterima'}} </p>
@@ -38,11 +51,22 @@
                 </p>
               </td>
             </tr>
+<script>
+$("#{{$key->id}}").click(function() {
+  $("#request{{$key->id}}").slideToggle("fast");
+});
+</script>
         @endforeach
            
           </table>
         </div>
       </div>
-      <!--CART ENDS--> 
-      
     </section>
+    <script type="text/javascript">
+    var id = location.hash.slice(1);
+      if(id){
+        // $('html, body').animate({ scrollTop: $('#'+id).offset().top }, 'fast');
+        $("#"+id).slideToggle("fast");
+      };
+    </script>
+
