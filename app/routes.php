@@ -1,5 +1,7 @@
 <?php
 
+Route::get('image','BaseController@image');
+
 Route::get('/', array('as'=>'home','uses'=>'FrontController@showIndex'));
 Route::get('informasi/{category}', array('as'=>'information-list','uses'=>'FrontController@showList'));
 Route::get('informasi/{category}/{slug}', array('as'=>'information-detail','uses'=>'FrontController@showDetail'));
@@ -36,6 +38,7 @@ Route::group(array('prefix'=>'admin', 'before'=>'auth.admin'), function()
 	}));
 	Route::resource('users', 'UsersController');
 	Route::resource('informations', 'InformationsController');
+	Route::resource('pages', 'PagesController');
 	Route::resource('requests', 'RequestsController');
 	Route::resource('responses', 'ResponsesController');
 	Route::get('profile', array('as'=>'admin-profile-form','uses'=>'AccountController@showProfile'));
@@ -45,7 +48,9 @@ Route::group(array('prefix'=>'admin', 'before'=>'auth.admin'), function()
 });
 
 //Api Route
-Route::group(array('prefix'=>'api/v1', /*'before'=>'auth'*/), function ()
+Route::group(array('prefix'=>'api/v1'), function ()
 {
+	Route::post('login', 'ApiController@login');
 	Route::resource('informations', 'ApiController');
+
 });

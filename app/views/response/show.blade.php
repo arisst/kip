@@ -19,7 +19,7 @@
 <div class="col-md-12">
     <ul class="list-group">
       <li class="list-group-item list-group-item-info"><b>Detail Response</b></li>
-      <li class="list-group-item"> <blockquote> <p> {{$response->title}} </p> <footer>{{$response->description}}</footer></blockquote></li>
+      <li class="list-group-item"> <blockquote> <p> {{{$response->title}}} </p> <footer>{{{$response->description}}}</footer></blockquote></li>
       <li class="list-group-item">Tanggal : <b>{{$response->added_on}}</b></li>
       <li class="list-group-item">Status : <b> 
       @if('0'==$response->status) <span class="label label-danger"> {{'Pending'}} </span>

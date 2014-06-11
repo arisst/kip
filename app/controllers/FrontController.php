@@ -111,7 +111,7 @@ class FrontController extends BaseController
 
 	public function getDownload()
 	{
-		$id = Input::get('information_id');
+		$id = Crypt::decrypt(Input::get('sess'));
 		$information = Informations::where('id', '=', $id)->get();
 		foreach ($information as $key);
 

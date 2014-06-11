@@ -44,8 +44,8 @@
 			@foreach($users as $key => $value)
 				<tr>
 					<td>{{ $i }}</td>
-					<td>{{ $value->name }}</td>
-					<td>{{ $value->email }}</td>
+					<td>{{{ $value->name }}}</td>
+					<td>{{{ $value->email }}}</td>
 					<td>
 						@if ($value->level == '1') Root
 						@elseif ($value->level == '2') Admin

@@ -8,9 +8,9 @@
     <div id="product_detail"> 
       <div class="product_rightcol">
         @foreach (Theme::getDetail() as $element)
-        <h1>{{$element->title}}</h1>
+        <h1>{{{$element->title}}}</h1>
         <p class="short_dc">
-          {{$element->description}}
+          {{{$element->description}}}
         </p>
         <div class="add_to_buttons">
         <?php if(Auth::check()) foreach(Theme::getRequest() as $key);?>

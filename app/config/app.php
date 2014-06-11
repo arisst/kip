@@ -119,7 +119,9 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+
 		'Teepluss\Theme\ThemeServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
 
 	),
 
@@ -186,7 +188,9 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+
 		'Theme'			  => 'Teepluss\Theme\Facades\Theme',
+		'Image' 		  => 'Intervention\Image\Facades\Image',
 
 	),
 

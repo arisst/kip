@@ -42,7 +42,7 @@
                 <p class="info">
                   @if('1'==$key->status)
                   {{Form::open(array('route'=>'user-download'))}}
-                    {{Form::hidden('information_id',$key->iid)}}
+                    {{Form::hidden('sess',Crypt::encrypt($key->iid))}}
                     {{Form::submit('Download')}}
                   {{Form::close()}}
                   @else

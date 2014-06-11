@@ -47,9 +47,9 @@
 			@foreach($responses as $key => $value)
 				<tr>
 					<td>{{ $i }}</td>
-					<td>{{ $value->name }}</td>
-					<td>{{ $value->title }}</td>
-					<td>{{ Str::limit($value->description,20)}} </td>
+					<td>{{{ $value->name }}}</td>
+					<td>{{{ $value->title }}}</td>
+					<td>{{{ Str::limit($value->description,20)}}} </td>
 					<td>
 						@if ($value->status == '0') <span class="label label-danger"> Pending </span>
 						@elseif ($value->status == '1') <span class="label label-success"> Accept </span>

@@ -24,7 +24,7 @@
 	@if (Session::has('message'))
 		<div class="alert alert-info alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			{{ Session::get('message') }}
+			{{{ Session::get('message') }}}
 		</div>
 	@endif
 
@@ -43,10 +43,10 @@
 			<?php $i=$informations->getFrom(); ?>
 			@foreach($informations as $key => $value)
 				<tr>
-					<td>{{ $i }}</td>
-					<td>{{ $value->category }}</td>
-					<td>{{ Str::limit($value->title, 30, '...') }}</td>
-					<td>{{ Str::limit($value->description, 50, '...') }}</td>
+					<td>{{{ $i }}}</td>
+					<td>{{{ $value->category }}}</td>
+					<td>{{{ Str::limit($value->title, 30, '...') }}}</td>
+					<td>{{{ Str::limit($value->description, 50, '...') }}}</td>
 					<!-- <td> @if($value->attachment) {{HTML::link('uploads/'.$value->attachment, 'download')}} @endif</td> -->
 					<td class="hidden-print">
 						{{ Form::open(array('route' => array('admin.informations.destroy',$value->id), 'style' => 'margin-bottom:0')) }}

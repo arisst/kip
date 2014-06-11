@@ -18,17 +18,17 @@
 <div class="col-md-12">
     <ul class="list-group">
       <li class="list-group-item list-group-item-info"><b>Detail Information</b></li>
-      <li class="list-group-item">Kategori : <b>{{$information->category}}</b></li>
-      <li class="list-group-item"> <blockquote> <p> {{$information->title}} </p> <footer>{{$information->description}}</footer></blockquote></li>
+      <li class="list-group-item">Kategori : <b>{{{$information->category}}}</b></li>
+      <li class="list-group-item"> <blockquote> <p> {{{$information->title}}} </p> <footer>{{{$information->description}}}</footer></blockquote></li>
       <li class="list-group-item">File :
       @if($information->attachment)
         <ul>
-          <li>Nama File : {{explode('/', $information->attachment)[1]}}</li>
-          <li>Ekstensi : {{ File::extension(public_path().'/uploads/'.$information->attachment)}}</li>
-          <li>Besar File : {{ number_format(((File::size(public_path().'/uploads/'.$information->attachment))/1024),2) }} Kb</li>
+          <li>Nama File : {{{explode('/', $information->attachment)[1]}}}</li>
+          <li>Ekstensi : {{{ File::extension(public_path().'/uploads/'.$information->attachment)}}}</li>
+          <li>Besar File : {{{ number_format(((File::size(public_path().'/uploads/'.$information->attachment))/1024),2) }}} Kb</li>
         </ul>
           {{Form::open(array('route'=>'user-download'))}}
-            {{Form::hidden('information_id',$information->id)}}
+            {{Form::hidden('sess',Crypt::encrypt($information->id))}}
             <button class="btn btn-primary btn-sm" type="submit">Download</button>
           {{Form::close()}}
       @else
