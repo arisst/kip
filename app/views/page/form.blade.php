@@ -30,13 +30,14 @@ else if('edit'==$act)
 	{{ Form::open(array('route'=>'admin.pages.store', 'files'=>true, 'class'=>'form-horizontal')) }}
 @elseif('edit'==$act)
 	{{ Form::model($pages, array('route' => array('admin.pages.update', $pages->id), 'method' => 'PUT', 'files'=>true, 'class'=>'form-horizontal')) }}
+	{{ Form::hidden('slug',$pages->slug) }}
 @endif
 
 	<div class="form-group">
 		{{ Form::label('category', 'Page', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
-			{{ Form::select('cat', array(''=>'-- Select --', 'Prosedur', 'FAQ', 'Tentang','Berita'), Input::old('cat'), array('class'=>'form-control input-sm', 'id'=>'category', 'required')) }}
-			<span class="help-block alert-danger">{{ $errors->first('category') }}</span>
+			{{ Form::select('cat', array(''=>'-- Select --', '1'=>'Prosedur', '2'=>'FAQ', '3'=>'Tentang','4'=>'Berita'), Input::old('cat'), array('class'=>'form-control input-sm', 'id'=>'category', 'required')) }}
+			<span class="help-block alert-danger">{{ $errors->first('cat') }}</span>
 		</div>
 	</div>
 
@@ -61,8 +62,12 @@ else if('edit'==$act)
 		{{ Form::label('attachment', 'Image', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::file('attachment', array('class'=>'form-control input-sm', 'id'=>'attachment')) }}
-			{{ Form::checkbox('removedFile', '1', false, array('id'=>'remove')).' '.Form::label('remove', 'Remove File?') }}
 			<span class="help-block alert-danger">{{ $errors->first('attachment') }}</span>
+		@if($pages->attachment) 
+			{{HTML::image('image/page/'.$pages->slug.'/50/'.$pages->attachment)}}
+		<br>
+			{{ Form::checkbox('removedFile', '1', false, array('id'=>'remove')).' '.Form::label('remove', 'Remove this image?') }}
+		@endif
 		</div>
 	</div>
 @else

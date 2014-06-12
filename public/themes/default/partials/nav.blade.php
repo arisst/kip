@@ -9,7 +9,7 @@
                             <ul>
                                 @foreach ($element['list'] as $key)
                                     <li class="{{ (Request::is($element['head'].'/'.Str::slug($key))) ? 'active' : '' }}">
-                                        {{HTML::link($element['head'].'/'.Str::slug($key), 'Informasi '.$key)}} 
+                                        {{HTML::link($element['head'].'/'.Str::slug($key), $key)}} 
                                     </li>
                                 @endforeach
                             </ul>
@@ -19,8 +19,7 @@
               @endforeach
 
 
-                <li><a href="">Prosedur</a>
-                    <!--SUbmenu Starts-->
+                <!-- <li><a href="">Prosedur</a>
                     <ul class="sub_menu">
                         <li> <a href="#">Mekanisme dan standar pelayanan</a>
                             <ul>
@@ -41,8 +40,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <!--SUbmenu Ends-->
-                </li>
+                </li> -->
                 <li><a href="{{URL::to('contact')}}">Kontak</a></li>
                 <li><a href="{{URL::to('faq')}}">Faq</a></li>
                 <li><a href="{{URL::to('about')}}">Tentang</a></li>

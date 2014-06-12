@@ -4,10 +4,12 @@
                 <div class="sideNavCategories">
                     <ul class="category departments">
                     @foreach (Theme::getMenu() as $element)
+                     @if($element['head']=='informasi')
                         <li class="header">{{$element['head']}}</li>
                         @foreach ($element['list'] as $key) 
-                            <li>{{HTML::link($element['head'].'/'.Str::slug($key), $element['head'].' '.$key)}}</li>
+                            <li>{{HTML::link($element['head'].'/'.Str::slug($key), $key)}}</li>
                         @endforeach
+                     @endif
                     @endforeach
                     </ul>
                 </div>

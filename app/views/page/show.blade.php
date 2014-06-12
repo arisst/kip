@@ -18,25 +18,22 @@
 <div class="col-md-12">
     <ul class="list-group">
       <li class="list-group-item list-group-item-info"><b>Detail Page</b></li>
-      <li class="list-group-item">Kategori : <b>{{{$information->category}}}</b></li>
-      <li class="list-group-item"> <blockquote> <p> {{{$information->title}}} </p> <footer>{{{$information->description}}}</footer></blockquote></li>
-      <li class="list-group-item">File :
-      @if($information->attachment)
-        <ul>
-          <li>Nama File : {{{explode('/', $information->attachment)[1]}}}</li>
-          <li>Ekstensi : {{{ File::extension(public_path().'/uploads/'.$information->attachment)}}}</li>
-          <li>Besar File : {{{ number_format(((File::size(public_path().'/uploads/'.$information->attachment))/1024),2) }}} Kb</li>
-        </ul>
-          {{Form::open(array('route'=>'user-download'))}}
-            {{Form::hidden('sess',Crypt::encrypt($information->id))}}
-            <button class="btn btn-primary btn-sm" type="submit">Download</button>
-          {{Form::close()}}
-      @else
-        Tidak ada
-      @endif
+      <li class="list-group-item">Page : <b>
+        @if ($page->cat == 1) Prosedur
+        @elseif ($page->cat == 2) FAQ
+        @elseif ($page->cat == 3) Tentang
+        @elseif ($page->cat == 4) Berita
+        @else Unknown
+        @endif
+      </b></li>
+      <li class="list-group-item"> <blockquote> <p> {{{$page->title}}} </p> <footer>{{ nl2br($page->description) }}</footer></blockquote></li>
+      @if($page->attachment)
+      <li class="list-group-item">
+        {{HTML::image('image/page/'.$page->slug.'/220/'.$page->attachment)}}
       </li>
-      <li class="list-group-item">Create : <b>{{$information->created_at}}</b></li>
-      <li class="list-group-item">Update : <b>{{$information->updated_at}}</b></li>
+      @endif
+      <li class="list-group-item">Create : <b>{{$page->created_at}}</b></li>
+      <li class="list-group-item">Update : <b>{{$page->updated_at}}</b></li>
       
     </ul>
 </div>

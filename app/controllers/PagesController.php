@@ -33,7 +33,7 @@ class PagesController extends \BaseController {
 			'cat' => 'required',
 			'title' => 'required|unique:pages',
 			'description' => 'required',
-			'attachment' => 'mimes:jpeg,bmp,png,pdf,zip,rar,doc,docx,odt,ods,xls,xlsx,ppt',
+			'attachment' => 'mimes:jpeg,bmp,png',
 		);
 		$messages = array(
 			'required' => ':attribute harus diisi!',
@@ -52,10 +52,11 @@ class PagesController extends \BaseController {
 			if(Input::hasFile('attachment'))
 			{
 				$file = Input::file('attachment'); 
-				$destinationPath = str_random(8);
+				$destinationPath = public_path().'/assets/images/'.Str::slug(Input::get('title'), '-');
 				$filename = $file->getClientOriginalName();
-				$uploadSuccess = Input::file('attachment')->move(public_path().'/uploads/'.$destinationPath, $filename);
-				$location = $destinationPath.'/'.$filename;
+				if(!File::exists($destinationPath)) File::makeDirectory($destinationPath);
+				Image::make($file->getRealPath())->save($destinationPath.'/'.$filename, 60);
+				$location = $filename;
 			}
 
 			$pages = new Pages;
@@ -86,10 +87,10 @@ class PagesController extends \BaseController {
 	public function update($id)
 	{
 		$rules = array(
-			'category' => 'required',
+			'cat' => 'required',
 			'title' => 'required|unique:pages,title,'.$id,
 			'description' => 'required',
-			'attachment' => 'max:2000000|mimes:jpeg,bmp,png,pdf,zip,rar,doc,docx,odt,ods,xls,xlsx,ppt',
+			'attachment' => 'mimes:jpeg,bmp,png',
 		);
 		$messages = array(
 			'required' => ':attribute harus diisi!',
@@ -108,23 +109,24 @@ class PagesController extends \BaseController {
 			if(Input::hasFile('attachment'))
 			{
 				$file = Input::file('attachment'); 
-				$destinationPath = str_random(8);
+				$destinationPath = public_path().'/assets/images/'.Input::get('slug');
 				$filename = $file->getClientOriginalName();
-				$uploadSuccess = Input::file('attachment')->move(public_path().'/uploads/'.$destinationPath, $filename);
-				$location = $destinationPath.'/'.$filename;
+				if(!File::exists($destinationPath)) File::makeDirectory($destinationPath);
+				Image::make($file->getRealPath())->save($destinationPath.'/'.$filename, 60);
+				$location = $filename;
 			}
 
 			if(Input::has('removedFile'))
 			{
 				$file = Pages::find($id);
-				File::delete(public_path().'/uploads/'.$file->attachment);
+				File::deleteDirectory(public_path().'/assets/images/'.$file->slug);
 				$location = '';
 			}
 
 			$pages = Pages::find($id);
-			$pages->category = Input::get('category');
+			$pages->cat = Input::get('cat');
 			$pages->title = Input::get('title');
-			$pages->slug = Str::slug(Input::get('title'), '-');
+			// $pages->slug = Str::slug(Input::get('title'), '-');
 			$pages->description = Input::get('description');
 			if(Input::hasFile('attachment') || Input::has('removedFile')) $pages->attachment = $location;
 			$pages->save();
@@ -137,7 +139,7 @@ class PagesController extends \BaseController {
 	public function destroy($id)
 	{
 		$pages = Pages::find($id);
-		File::delete(public_path().'/uploads/'.$pages->attachment);
+		File::deleteDirectory(public_path().'/assets/images/'.$pages->slug);
 		$pages->delete();
 
 		Session::flash('message', 'Successfully deleted the pages!');

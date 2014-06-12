@@ -49,8 +49,19 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
+	// return 'pokoe error';
 });
 
+//404
+/*App::missing(function($exception)
+{
+    return 'papat kosong papat - ora temu';
+});
+
+App::fatal(function($exception)
+{
+    return 'fatal error';
+});*/
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler

@@ -11,13 +11,12 @@
 			@endif
 	    </ul>
 	</div>
-	<!--Logo Starts-->
+
 	<h1 class="logo"> <a href="{{URL::to('/')}}">
 	<!-- <img src="{{Theme::asset()->url('img/logo.png')}}" /></a>  -->
 	<img src="http://placehold.it/145x74" /></a> 
 	</h1>
-	<!--Logo Ends-->
-	<!--Responsive NAV-->            
+
 	<div class="responsive-nav" style="display:none;">
 	    <select  onchange="if(this.options[this.selectedIndex].value != ''){window.top.location.href=this.options[this.selectedIndex].value}">
 
@@ -29,13 +28,12 @@
 	    @endforeach
 	    </select>
 	</div>
-	<!--Responsive NAV-->
-	<!--Search Starts-->
-	<form class="header_search">
+
+	<!-- <form class="header_search">
 	    <div class="form-search">
 	        <input id="search" type="text" name="q" value="" class="input-text" autocomplete="off" placeholder="Search">
 	        <button type="submit" title="Search"></button>
 	    </div>
-	</form>
-	<!--Search Ends-->
+	</form> -->
+	
 </header>

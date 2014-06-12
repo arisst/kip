@@ -1,10 +1,12 @@
 <?php
 
-Route::get('image','BaseController@image');
+Route::get('image/{use}/{dir}/{size}/{file}','BaseController@image');
 
 Route::get('/', array('as'=>'home','uses'=>'FrontController@showIndex'));
-Route::get('informasi/{category}', array('as'=>'information-list','uses'=>'FrontController@showList'));
-Route::get('informasi/{category}/{slug}', array('as'=>'information-detail','uses'=>'FrontController@showDetail'));
+Route::get('informasi/{category}', array('as'=>'information-list','uses'=>'FrontController@informationList'));
+Route::get('informasi/{category}/{slug}', array('as'=>'information-detail','uses'=>'FrontController@informationDetail'));
+Route::get('prosedur/{slug}', array('as'=>'page-detail','uses'=>'FrontController@pageDetail'));
+Route::get('about/{slug}', array('as'=>'about-detail','uses'=>'FrontController@aboutDetail'));
 
 Route::get('login', array('as'=>'login-form', 'before'=>'guest', 'uses'=>'AccountController@showLogin'));
 Route::post('login', array('before'=>'csrf','as'=>'login-submit','uses'=>'AccountController@doLogin'));

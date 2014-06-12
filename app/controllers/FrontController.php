@@ -21,8 +21,15 @@ class FrontController extends BaseController
 			$category[] = $key->category;
 		}
 
+		$page_menu = Pages::where('cat','=','1')->get(array('title'));
+		foreach ($page_menu as $key) 
+		{
+			$page[] = $key->title;
+		}
+
 		return array(
-			array('head'=>'informasi', 'subhead'=>'DATA INFORMASI', 'list'=>$category)
+			array('head'=>'informasi', 'subhead'=>'DATA INFORMASI', 'list'=>$category),
+			array('head'=>'prosedur', 'subhead'=>'PERMOHONAN INFORMASI', 'list'=>$page)
 		);
 	}
 
@@ -31,7 +38,7 @@ class FrontController extends BaseController
 		return $this->theme->watch('front.home')->render();
 	}
 
-	public function showList($category)
+	public function informationList($category)
 	{
 		$information = Informations::where('category', '=', str_replace('-', ' ', $category))->get();
 		$this->theme->setList($information);
@@ -40,7 +47,7 @@ class FrontController extends BaseController
 		return $this->theme->of('front.home', $view)->render();
 	}	
 
-	public function showDetail($category, $slug)
+	public function informationDetail($category, $slug)
 	{
 		$information = Informations::where('slug', '=', $slug)->get();
 		$this->theme->setDetail($information);
@@ -55,7 +62,16 @@ class FrontController extends BaseController
 		}
 		
 		$view = array('page'=>'detail', 'subtitle'=>' - ');
-		return $this->theme->of('front.home', $view)->render();
+		return $this->theme->of('front.information.detail', $view)->render();
+	}
+
+	public function pageDetail($slug)
+	{
+		$page = Pages::where('slug', '=', $slug)->get();
+		$this->theme->setDetail($page);
+		
+		$view = array('page'=>'detail', 'subtitle'=>' - ');
+		return $this->theme->of('front.page.detail', $view)->render();
 	}
 
 	public function showRequest($id, $slug)

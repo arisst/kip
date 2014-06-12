@@ -32,22 +32,34 @@
 		<thead>
 			<tr>
 				<th>No</th>
-				<th>Category</th>
+				<th>Page</th>
 				<th>Title</th>
 				<th>Description</th>
-				<!-- <th>Attachment</th> -->
+				<th>Image</th>
 				<th class="hidden-print">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php $i=$pages->getFrom(); ?>
-			@foreach($pages as $key => $value)
+			@foreach($pages as $value)
 				<tr>
 					<td>{{{ $i }}}</td>
-					<td>{{{ $value->cat }}}</td>
+					<td>
+						@if ($value->cat == 1) Prosedur
+						@elseif ($value->cat == 2) FAQ
+						@elseif ($value->cat == 3) Tentang
+						@elseif ($value->cat == 4) Berita
+						@else Unknown
+						@endif
+					</td>
 					<td>{{{ Str::limit($value->title, 30, '...') }}}</td>
 					<td>{{{ Str::limit($value->description, 50, '...') }}}</td>
 					<!-- <td> @if($value->attachment) {{HTML::link('uploads/'.$value->attachment, 'download')}} @endif</td> -->
+					<td>
+						@if($value->attachment) 
+						{{HTML::image('image/page/'.$value->slug.'/22/'.$value->attachment)}}
+						@endif
+					</td>
 					<td class="hidden-print">
 						{{ Form::open(array('route' => array('admin.pages.destroy',$value->id), 'style' => 'margin-bottom:0')) }}
 							<a class="btn btn-xs btn-success" href="{{ URL::route('admin.pages.show',$value->id) }}">
@@ -56,10 +68,12 @@
 							<a class="btn btn-xs btn-info" href="{{ URL::route('admin.pages.edit',$value->id) }}">
 								<span class="glyphicon glyphicon-edit"></span> Edit
 							</a>
+							
 							{{ Form::hidden('_method', 'DELETE') }}
 							<button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Delete this data?');">
 								<span class="glyphicon glyphicon-trash"></span> Delete
 							</button>
+							
 						{{ Form::close() }}
 					</td>
 				</tr>
