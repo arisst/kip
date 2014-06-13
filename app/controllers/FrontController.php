@@ -21,21 +21,50 @@ class FrontController extends BaseController
 			$category[] = $key->category;
 		}
 
-		$page_menu = Pages::where('cat','=','1')->get(array('title'));
+		$page_menu = Pages::get(array('title','cat'));
 		foreach ($page_menu as $key) 
 		{
-			$page[] = $key->title;
+			if($key->cat==1){
+			}
+			switch ($key->cat) {
+				case 1:
+					$page_prosedur[] = $key->title;
+					break;
+				case 2:
+					$page_faq[] = $key->title;
+					break;
+				case 3:
+					$page_about[] = $key->title;
+					break;
+				case 4:
+					$page_berita[] = $key->title;
+					break;
+				default:
+					# code...
+					break;
+			}
 		}
 
+		$page_berita = (isset($page_berita)) ? $page_berita : '' ;
 		return array(
-			array('head'=>'informasi', 'subhead'=>'DATA INFORMASI', 'list'=>$category),
-			array('head'=>'prosedur', 'subhead'=>'PERMOHONAN INFORMASI', 'list'=>$page)
+			array('head'=>'informasi', 'headLink'=>'#','subhead'=>'DATA INFORMASI', 'list'=>$category),
+			array('head'=>'prosedur', 'headLink'=>'#','subhead'=>'Prosedur PERMOHONAN INFORMASI', 'list'=>$page_prosedur),
+			array('head'=>'berita','headLink'=>'#', 'list'=>$page_berita),
+			array('head'=>'faq','headLink'=>'#','subhead'=>'Frequently Asked Questions', 'list'=>$page_faq),
+			// array('head'=>'kontak','headLink'=>'contact'),
+			array('head'=>'tentang','headLink'=>'about', 'subhead'=>'Tentang KIP','list'=>$page_about),
 		);
 	}
 
 	public function showIndex()
 	{
-		return $this->theme->watch('front.home')->render();
+		$ber = Pages::where('cat','=','4')->where('attachment','!=','')->orderBy('updated_at','desc')->take(3)->get();
+		$this->theme->setBerita($ber);
+		$pros = Pages::where('cat','=','1')->where('attachment','!=','')->orderBy('updated_at','desc')->take(5)->get();
+		$this->theme->setProsedur($pros);
+
+		$view = array('subtitle' => 'Home | ');
+		return $this->theme->of('front.home', $view)->render();
 	}
 
 	public function informationList($category)
@@ -43,7 +72,7 @@ class FrontController extends BaseController
 		$information = Informations::where('category', '=', str_replace('-', ' ', $category))->get();
 		$this->theme->setList($information);
 
-		$view = array('page'=>'list', 'subtitle'=> 'Informasi '.$category.' - ');
+		$view = array('page'=>'list', 'subtitle'=> 'Informasi '.$category.' | ');
 		return $this->theme->of('front.home', $view)->render();
 	}	
 
@@ -51,26 +80,27 @@ class FrontController extends BaseController
 	{
 		$information = Informations::where('slug', '=', $slug)->get();
 		$this->theme->setDetail($information);
+		foreach ($information as $key);
 
 		if(Auth::check())
 		{
-			foreach ($information as $key);
 			$request = Requests::where('information_id','=',$key->id)
 								->where('user_id','=',Auth::user()->id)
 								->get();
 			$this->theme->setRequest($request);
 		}
 		
-		$view = array('page'=>'detail', 'subtitle'=>' - ');
+		$view = array('page'=>'detail', 'subtitle'=>$key->title.' | ');
 		return $this->theme->of('front.information.detail', $view)->render();
 	}
 
-	public function pageDetail($slug)
+	public function pageDetail($slug = 'faq')
 	{
 		$page = Pages::where('slug', '=', $slug)->get();
+		foreach($page as $key);
 		$this->theme->setDetail($page);
 		
-		$view = array('page'=>'detail', 'subtitle'=>' - ');
+		$view = array('page'=>'detail', 'subtitle'=>$key->title.' | ');
 		return $this->theme->of('front.page.detail', $view)->render();
 	}
 
@@ -93,7 +123,7 @@ class FrontController extends BaseController
 			'description'=>'required'
 			);
 
-		$message = array('required'=>':attribute harus diisi!');
+		$message = array('required'=>'Harus diisi!');
 		$validator = Validator::make(Input::all(), $rules, $message);
 
 		if ($validator->fails()) 

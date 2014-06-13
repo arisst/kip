@@ -13,10 +13,12 @@
                 <h3>Tujuan Penggunaan</h3>             
                 <ul id="contact_form">
                     <li>
-                        {{Form::text('title', '', array('placeholder'=>'Subjek Tujuan'))}}
+                        {{Form::text('title', Input::old('title'), array('placeholder'=>'Subjek Tujuan'))}}
+                        <p class="error">{{{$errors->first('title')}}}</p>
                     </li>
                     <li>
-                        {{Form::textarea('description','', array('placeholder'=>'Uraian tujuan penggunan'))}}
+                        {{Form::textarea('description', Input::old('title'), array('placeholder'=>'Uraian tujuan penggunan'))}}
+                        <p class="error">{{{$errors->first('description')}}}</p>
                     </li>
                     <li>
                         <button name="submit" type="submit" class="subbutton brown_btn">Submit</button>
@@ -58,19 +60,5 @@
                     </div>
                 </div>
             </div>
-            <!--Newsletter_subscribe Starts-->
-            <div class="subscribe_block">
-                <div class="find_us">
-                    <h3>Find us on</h3>
-                    <a class="twitter" href="#"></a> <a class="facebook" href="#"></a> <a class="rss" href="#"></a> </div>
-                <div class="subscribe_nl">
-                    <h3>Subscribe to our Newsletter</h3>
-                    <small>Instant wardrobe updates, new arrivals, fashion news, don’t miss a beat – sign up to our newsletter now.</small>
-                    <form id="newsletter" method="post" action="#">
-                        <input type="text" class="input-text" value="Enter your email" title="Enter your email" id="newsletter" name="email">
-                        <button class="button" title="" type="submit"></button>
-                    </form>
-                </div>
-            </div>
-            <!--Newsletter_subscribe Ends-->
+            
         </section>

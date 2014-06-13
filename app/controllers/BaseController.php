@@ -19,7 +19,8 @@ class BaseController extends Controller {
 
 	public function image($use, $dir, $size, $file)
 	{
-		if($size <= 0 || $size > 2000) App::abort(404);
+		$ex = explode('x', $size);
+		if($ex[0] <= 0 || $ex[0] > 2000) App::abort(404);
 		if($use == 'page')
 		{
 			$img_path = public_path().'/assets/images/'.$dir.'/'.$file;
@@ -28,6 +29,19 @@ class BaseController extends Controller {
 		{
 			$img_path = public_path().'/assets/images/';
 		}
+
+		$img = Image::make($img_path);
+		if(isset($ex[1]))
+		{
+			$img->fit(intval($ex[0]),intval($ex[1]));
+		}else
+		{
+			$img->heighten(intval($ex[0]));
+		}
+		
+		return $img->response();
+
+
 		// Image::make($img_path.'aris.jpg')->resize(300, 300)->save($img_path.'aris-300x300.jpg');
 
 		// Image::make($img_path.'aris.jpg')->fit(300)->save($img_path.'aris-fit-300.jpg');
@@ -41,7 +55,6 @@ class BaseController extends Controller {
 
 		// Image::make($img_path.'aris.jpg')->encode('jpg',15)->save($img_path.'aris-encode-15.jpg');
 
-		return Image::make($img_path)->heighten(intval($size))->response();
 
 		/*$name = Image::make($img_path.'aris.jpg')->exif();
 		dd($name);*/

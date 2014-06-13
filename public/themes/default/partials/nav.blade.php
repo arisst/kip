@@ -3,9 +3,10 @@
             <li class="{{ (Route::currentRouteName()=='home') ? 'active' : '' }}"><a href="{{URL::route('home')}}">HOME</a></li>
 
               @foreach (Theme::getMenu() as $element)
-                  <li class="{{(Request::is($element['head'].'/*')) ? 'active' : ''}}"> {{HTML::link('#', $element['head'])}}
+                  <li class="{{(Request::is($element['head'].'*')) ? 'active' : ''}}"> {{HTML::link($element['headLink'], $element['head'])}}
+                    @if(isset($element['list'])&&$element['list']!='')
                      <ul class="sub_menu">
-                        <li> <a href="#">{{$element['subhead']}}</a>
+                        <li> <a href="#">{{$element['subhead'] or ''}}</a>
                             <ul>
                                 @foreach ($element['list'] as $key)
                                     <li class="{{ (Request::is($element['head'].'/'.Str::slug($key))) ? 'active' : '' }}">
@@ -15,35 +16,10 @@
                             </ul>
                         </li>
                     </ul>
+                    @endif
                   </li>
               @endforeach
 
-
-                <!-- <li><a href="">Prosedur</a>
-                    <ul class="sub_menu">
-                        <li> <a href="#">Mekanisme dan standar pelayanan</a>
-                            <ul>
-                                <li><a href="#">Ketentuan Umum</a></li>
-                                <li><a href="#">Klasifikasi Informasi</a></li>
-                                <li><a href="#">Standard pelayanan Informasi</a></li>
-                                <li><a href="#">Hak dan Kewajiban Pemohon/Badan Publik</a></li>
-                                <li><a href="#">Hak dan Kewajiban Pemohon</a></li>
-                                <li><a href="#">Hak dan Kewajiban Badan Publik</a></li>
-
-                            </ul>
-                        </li> 
-                        <li> <a href="#">Permohonan Informasi</a>
-                            <ul>
-                                <li><a href="#">Mengajukan Keberatan</a></li>
-                                <li><a href="#">Mengajukan Sengketa</a></li>
-                                <li><a href="#">Penyelesaian Sengketa</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li> -->
-                <li><a href="{{URL::to('contact')}}">Kontak</a></li>
-                <li><a href="{{URL::to('faq')}}">Faq</a></li>
-                <li><a href="{{URL::to('about')}}">Tentang</a></li>
             </ul>
         </nav>
 

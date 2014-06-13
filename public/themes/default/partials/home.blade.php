@@ -6,20 +6,30 @@
                         <li> <img src="{{ Theme::asset()->url('img/lm_banner_2.jpg') }}" /></li>
                         <li> <img src="{{ Theme::asset()->url('img/lm_banner_3.jpg') }}" /></li>
                          -->
-                        <li> <img src="http://placehold.it/697x435" /></li>
-                        <li> <img src="http://placehold.it/697x435" /></li>
-                        <li> <img src="http://placehold.it/697x435" /></li>
+                        @foreach(Theme::getProsedur() as $prosedur)
+                            <li>{{HTML::image('image/page/'.$prosedur->slug.'/697x435/'.$prosedur->attachment)}}
+
+                            <div class="flex-caption" onclick="window.location='{{URL::to('prosedur/'.$prosedur->slug)}}'" style="cursor:pointer;">
+                             {{$prosedur->title}}
+                             </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="promo_banner">
                     <!-- <div class="home_banner"><a href="#"><img src="{{ Theme::asset()->url('img/promo_hb_1.jpg') }}"></a></div>
                     <div class="home_banner"><a href="#"><img src="{{ Theme::asset()->url('img/promo_hb_2.jpg') }}"></a></div>
                     <div class="home_banner"><a href="#"><img src="{{ Theme::asset()->url('img/promo_hb_3.jpg') }}"></a></div> -->
-                    <div class="home_banner"><a href="#"><img src="http://placehold.it/278x141"></a></div>
-                    <div class="home_banner"><a href="#"><img src="http://placehold.it/278x141"></a></div>
-                    <div class="home_banner"><a href="#"><img src="http://placehold.it/278x141"></a></div>
+                    @foreach(Theme::getBerita() as $berita)
+                    <div class="home_banner"><a href="{{URL::to('berita/'.$berita->slug)}}">
+                        {{HTML::image('image/page/'.$berita->slug.'/278x141/'.$berita->attachment)}}
+                        </a>
+                        <span class="text-content"><span>{{{$berita->title}}}</span></span>
+                    </div>
+                    @endforeach
                 </div>
             </div>
+
 
             <!-- <div class="products_list products_slider">
                 <h2 class="sub_title">New Products</h2>

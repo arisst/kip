@@ -52,7 +52,7 @@ nav .minicart span b{font-weight:bold;}
 /*-----------------------------------SUBMENU*/
 ul.sub_menu{position:absolute;top:40px; left:-4000px; background-color: rgba(255, 255, 255, 0.93); background:#fff\9; padding:15px 0px; z-index:100; width:980px; box-shadow:0px 5px 6px #999;border-top:solid 3px;}
 nav .primary_nav > li:hover > ul{ left:0px;}
-ul.sub_menu > li{ width:210px; margin-left:30px;}
+ul.sub_menu > li{ width:250px; margin-left:30px;}
 ul.sub_menu li a{ line-height:20px; color:#544f4b; text-decoration:none;}
 ul.sub_menu > li > a{ font-weight:bold; text-transform:uppercase; color:#312e2b;}
 ul.sub_menu > li > ul > li{ padding:5px 0px; float:none; border-bottom:dotted 1px #fff;}

@@ -20,11 +20,14 @@
 	<div class="responsive-nav" style="display:none;">
 	    <select  onchange="if(this.options[this.selectedIndex].value != ''){window.top.location.href=this.options[this.selectedIndex].value}">
 
-	        <option selected="" value="">-- Menu --</option>
+	    <option value="{{URL::to('/')}}">Home</option>
 	    @foreach (Theme::getMenu() as $element)
+	    <!-- <option>{{$element['head']}}</option> -->
+	     @if(isset($element['list'])&&$element['list']!='')
 	    	@foreach ($element['list'] as $key) 
-	    		<option value="{{ URL::to($element['head'].'/'.Str::slug($key)) }}">{{$element['head'].' '.$key}}</option>
+	    		<option {{ (Request::is($element['head'].'/'.Str::slug($key))) ? 'selected' : '' }} value="{{ URL::to($element['head'].'/'.Str::slug($key)) }}">{{$key}}</option>
 	    	@endforeach
+	     @endif
 	    @endforeach
 	    </select>
 	</div>
