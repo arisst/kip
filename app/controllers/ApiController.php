@@ -31,27 +31,69 @@ class ApiController extends \BaseController {
 		}
 	}
 
-	/*
-{
-    "tag": "login",
-    "success": 1,
-    "error": 0,
-    "uid": "4f074eca601fb8.88015924",
-    "user": {
-        "name": "Ravi Tamada",
-        "email": "ravi8x@gmail.com",
-        "created_at": "2012-01-07 01:03:53",
-        "updated_at": null
-    }
-}
+	public function register()
+	{
+		$rules = array(
+			'name' => 'required',
+			'email' => 'required|email|unique:users,email',
+			'phone' => 'required|numeric',
+			'address' => 'required',
+			'ktp' => 'required|numeric',
+			'password' => 'required|min:6'
+		);
+		$messages = array(
+			'required' => 'harus diisi!',
+			'min' => 'minimal :min karakter!',
+			'unique' => 'alamat email ini sudah dipakai!',
+			'numeric' => 'angka tidak valid'
+		);
+		$validator = Validator::make(Input::all(), $rules, $messages);
 
-{
-    "tag": "login",
-    "success": 0,
-    "error": 1,
-    "error_msg": "Incorrect email or password!"
-}
-	*/
+		if ($validator->fails()) 
+		{
+			// return Redirect::route('login-form')->withErrors($validator)->withInput(Input::except('rpassword'));
+			return Response::json(array(
+				'tag' => 'register',
+				'success' => 2,
+				'error' => 1,
+				'error_msg' => $validator->messages()->toJson()
+			),200);
+		} 
+		else 
+		{
+			$name = Input::get('name');
+			$email = Input::get('email');
+			$phone = Input::get('phone');
+			$address = Input::get('address');
+			$ktp = Input::get('ktp');
+			$password = Input::get('password');
+			$activate_key = Str::random(60);
+
+			$user = new User();
+			$user->name = $name;
+			$user->email = $email;
+			$user->phone = $phone;
+			$user->address = $address;
+			$user->ktp = $ktp;
+			$user->password = Hash::make($password);
+			$user->level = 3; //Guest Account
+			$user->status = 0; //Pending
+			$user->activate_key = $activate_key;
+			$user->save();
+
+			Mail::send('emails.auth.activate', array('link'=> URL::route('account-activate', $activate_key), 'name' => $name, 'email' => $email, 'phone' => $phone, 'address' => $address, 'ktp' => $ktp), function($message) use ($user) {
+					$message->to($user->email, $user->name)->subject('Aktivasi akun KIP');
+			});
+
+			return Response::json(array(
+				'tag' => 'register',
+				'success' => 1,
+				'error' => 0,
+				'message' => "Pendaftaran berhasil, silakan konfirmasi email anda!"
+			),200);
+		}
+	}
+
 
 	public function index()
 	{

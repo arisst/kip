@@ -67,7 +67,7 @@ return array(
 	|
 	*/
 
-	'encryption' => 'tls',
+	'encryption' => Config::get('setting.mail_encryption'),
 
 	/*
 	|--------------------------------------------------------------------------

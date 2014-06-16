@@ -13,8 +13,8 @@
 			{{ Session::get('message') }}
 		</div>
 	@endif
-  </div>
-
+  
+<div class=".col-xs-13 col-md-9">
 	{{ Form::open(array('route'=>'admin-setting-update', 'class'=>'form-horizontal')) }}
 
 	<div class="form-group">
@@ -22,6 +22,14 @@
 		<div class="input-group col-xs-6">
 			{{ Form::text('site_name', Config::get('setting.site_name'), array('class'=>'form-control input-sm', 'id'=>'site_name', 'placeholder'=>'Nama Website', 'required')) }}
 		<span class="help-block">{{ $errors->first('site_name') }}</span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		{{ Form::label('address', 'Alamat Instansi', array('class'=>'col-sm-2 control-label')) }}
+		<div class="input-group col-xs-6">
+			{{ Form::textarea('address', Config::get('setting.address'), array('class'=>'form-control input-sm', 'id'=>'address', 'placeholder'=>'Alamat Isntansi', 'required', 'rows'=>5)) }}
+		<span class="help-block">{{ $errors->first('address') }}</span>
 		</div>
 	</div>
 
@@ -51,7 +59,7 @@
 	<div class="form-group">
 		{{ Form::label('mail_driver', 'Mail Driver', array('class'=>'col-sm-2 control-label')) }}
 		<div class="input-group col-xs-6">
-			{{ Form::text('mail_driver', Config::get('setting.mail_driver'), array('class'=>'form-control input-sm', 'id'=>'mail_driver', 'placeholder'=>'Mail Driver')) }}
+			{{ Form::select('mail_driver', array('smtp'=>'smtp','mail'=>'mail','sendmail'=>'sendmail'), Config::get('setting.mail_driver'), array('class'=>'form-control input-sm', 'id'=>'mail_driver', 'placeholder'=>'Mail Driver')) }}
 			<span class="help-block">{{ $errors->first('mail_driver') }}</span>
 		</div>
 	</div>
@@ -69,6 +77,14 @@
 		<div class="input-group col-xs-6">
 			{{ Form::text('mail_host', Config::get('setting.mail_host'), array('class'=>'form-control input-sm', 'id'=>'mail_host', 'placeholder'=>'Mail Host')) }}
 			<span class="help-block">{{ $errors->first('mail_host') }}</span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		{{ Form::label('mail_encryption', 'Mail Encryption', array('class'=>'col-sm-2 control-label')) }}
+		<div class="input-group col-xs-6">
+			{{ Form::select('mail_encryption', array('tls'=>'tls','ssl'=>'ssl'), Config::get('setting.mail_encryption'), array('class'=>'form-control input-sm', 'id'=>'mail_encryption', 'placeholder'=>'Mail Encryption')) }}
+			<span class="help-block">{{ $errors->first('mail_encryption') }}</span>
 		</div>
 	</div>
 
@@ -101,6 +117,21 @@
 	</div>
 
 	{{ Form::close() }}
+	</div>
+	<div class=".col-xs-5 col-md-3">
+		<div class="well">
+		Konfigurasi Email menggunakan gmail
+			<ul>
+				<li>Mail driver : smtp</li>
+				<li>Mail port : 465</li>
+				<li>Mail host : smtp.gmail.com</li>
+				<li>Mail encryption : ssl</li>
+				<li>Mail username : [akun gmail anda]</li>
+				<li>Mail password : [password gmail anda]</li>
+			</ul>
+		</div>
+	</div>
+</div>
 </div>
 {{HTML::script('assets/bootstrap/js/password.js')}}
 <script>

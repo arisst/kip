@@ -3,6 +3,8 @@
 Route::get('image/{use}/{dir}/{size}/{file}','BaseController@image');
 
 Route::get('/', array('as'=>'home','uses'=>'FrontController@showIndex'));
+// Route::post('/', array('as'=>'login-api','uses'=>'ApiController@login'));
+
 Route::get('informasi/{category}', array('as'=>'information-list','uses'=>'FrontController@informationList'));
 Route::get('informasi/{category}/{slug}', array('as'=>'information-detail','uses'=>'FrontController@informationDetail'));
 Route::get('prosedur/{slug}', array('as'=>'page-detail','uses'=>'FrontController@pageDetail'));
@@ -40,6 +42,11 @@ Route::group(array('prefix'=>'admin', 'before'=>'auth.admin'), function()
 	{
 		return View::make('dashboard.index');
 	}));
+
+	Route::get('email',function(){
+		return View::make('emails.auth.activate2');
+	});
+
 	Route::resource('users', 'UsersController');
 	Route::resource('informations', 'InformationsController');
 	Route::resource('pages', 'PagesController');
@@ -55,6 +62,7 @@ Route::group(array('prefix'=>'admin', 'before'=>'auth.admin'), function()
 Route::group(array('prefix'=>'api/v1'), function ()
 {
 	Route::post('login', 'ApiController@login');
+	Route::post('register', 'ApiController@register');
 	Route::resource('informations', 'ApiController');
 
 });

@@ -23,7 +23,8 @@ class AccountController extends FrontController {
 			{
 				if(Auth::user()->level==1 || Auth::user()->level==2)
 				{
-					return Redirect::route('admin-index');
+					// return Redirect::route('admin-index');
+					return Redirect::intended('admin');
 				}
 				else
 				{
@@ -84,8 +85,16 @@ class AccountController extends FrontController {
 			$user->activate_key = $activate_key;
 			$user->save();
 
-			Mail::send('emails.auth.activate', array('link'=> URL::route('account-activate', $activate_key), 'name' => $name, 'email' => $email, 'phone' => $phone, 'address' => $address, 'ktp' => $ktp), function($message) use ($user) {
-					$message->to($user->email, $user->name)->subject('Aktivasi akun KIP');
+			Mail::send('emails.auth.activate', 
+				array(
+					'link'=> URL::route('account-activate', $activate_key), 
+					'name' => $name, 
+					'email' => $email, 
+					'phone' => $phone, 
+					'address' => $address, 
+					'ktp' => $ktp), 
+				function($message) use ($user) {
+					$message->to($user->email, $user->name)->subject('Aktivasi akun '.Config::get('setting.site_name'));
 			});
 
 			Session::flash('message', 'Pendaftaran berhasil, silahkan periksa email anda untuk aktivasi.');
@@ -110,7 +119,7 @@ class AccountController extends FrontController {
 				return Redirect::route('login-form')->with('message', 'Akun telah aktif, silahkan login!');
 			}
 		}
-		return Redirect::route('login-form')->with('error', 'Gagal mengaktifkan, silahkan coba lagi!');
+		return Redirect::route('login-form')->with('error', 'Gagal mengaktifkan / akun anda telah aktif sebelumnya, silahkan coba lagi!');
 	}
 
 	public function showProfile()

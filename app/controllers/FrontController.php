@@ -141,8 +141,22 @@ class FrontController extends BaseController
 			$requests->added_on = date('Y-m-d H:i:s');
 			$requests->save();
 
+			$emailadmin = User::whereIn('level', array('1','2'))->get(array('name','email'));
+
+			// Send email to all admin user
+			foreach ($emailadmin as $key) {
+				Mail::queue('emails.request', 
+					array(
+						'link'=> URL::to('admin/requests/'.$requests->id), 
+						'name' => Auth::user()->name
+						), 
+					function($message) use ($key){
+						$message->to($key->email, Config::get('setting.site_name'))->subject('Request baru - '.Config::get('setting.site_name'));
+				});
+			}
+
 			Session::flash('message', 'Request informasi berhasil');
-			return Redirect::route('home');
+			return Redirect::route('user-request-list');
 		}
 	}
 

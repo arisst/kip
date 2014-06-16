@@ -17,6 +17,7 @@ class SettingController extends BaseController {
 			'per_page'=>'required|numeric|between:5,100',
 			'mail_driver'=>'required',
 			'mail_host'=>'required',
+			'mail_encryption'=>'required',
 			'mail_port'=>'required|numeric|between:1,65535',
 			'mail_username'=>'required',
 			'mail_password'=>'required',
@@ -53,10 +54,12 @@ class SettingController extends BaseController {
 					");*/
 
 			DB::table('setting')->where('key','=','site_name')->update(array('value'=>Input::get('site_name')));
+			DB::table('setting')->where('key','=','address')->update(array('value'=>Input::get('address')));
 			DB::table('setting')->where('key','=','site_theme')->update(array('value'=>Input::get('site_theme')));
 			DB::table('setting')->where('key','=','per_page')->update(array('value'=>Input::get('per_page')));
 			DB::table('setting')->where('key','=','mail_driver')->update(array('value'=>Input::get('mail_driver')));
 			DB::table('setting')->where('key','=','mail_host')->update(array('value'=>Input::get('mail_host')));
+			DB::table('setting')->where('key','=','mail_encryption')->update(array('value'=>Input::get('mail_encryption')));
 			DB::table('setting')->where('key','=','mail_port')->update(array('value'=>Input::get('mail_port')));
 			DB::table('setting')->where('key','=','mail_username')->update(array('value'=>Input::get('mail_username')));
 			DB::table('setting')->where('key','=','mail_password')->update(array('value'=>Crypt::encrypt(Input::get('mail_password'))));
