@@ -36,4 +36,9 @@ class Requests extends Eloquent
 			->orderBy('requests.added_on','desc')
 			->get();
 	}
+
+	public static function setStatus($id, $status)
+	{
+		return DB::table('requests')->where('id','=',$id)->update(array('status'=>$status));
+	}
 }

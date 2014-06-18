@@ -40,9 +40,21 @@ class ResponsesController extends \BaseController {
 		$respon->added_on = date('Y-m-d H:i:s');
 		$respon->save();
 
-		$request = Requests::find($request_id);
-		$request->status = $request_status;
-		$request->save();
+		Requests::setStatus($request_id, $request_status);
+		$req = Requests::findRequest($request_id);
+		foreach ($req as $request);
+		// $request->status = $request_status;
+		// $request->save();
+
+		//Kirim email
+		Mail::queue('emails.response', 
+					array(
+						'link'=> URL::to('requests#request'.$request->id), 
+						'name' => $request->name
+						), 
+					function($message) use ($request){
+						$message->to($request->email, $request->name)->subject('Respon admin - '.Config::get('setting.site_name'));
+				});
 
 		Session::flash('message', 'Respon success!');
 		return Redirect::route('admin.responses.index');

@@ -8,7 +8,7 @@
       @if(isset($key))
         @if($key->status==1)
           {{Form::open(array('route'=>'user-download'))}}
-                    {{Form::hidden('information_id',$key->information_id)}}
+                    {{Form::hidden('sess', Crypt::encrypt($key->information_id))}}
                     <button class="add_cart" type="submit">Download</button>
           {{Form::close()}}
         @else

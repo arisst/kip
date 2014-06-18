@@ -14,11 +14,11 @@
 		</div>
 	@endif
   
-<div class=".col-xs-13 col-md-9">
-	{{ Form::open(array('route'=>'admin-setting-update', 'class'=>'form-horizontal')) }}
+<div class=".col-xs-11 col-md-7">
+	{{ Form::open(array('route'=>'admin-setting-update', 'files'=>true, 'class'=>'form-horizontal')) }}
 
 	<div class="form-group">
-		{{ Form::label('site_name', 'Nama Website', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('site_name', 'Nama Website', array('class'=>'col-sm-3 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::text('site_name', Config::get('setting.site_name'), array('class'=>'form-control input-sm', 'id'=>'site_name', 'placeholder'=>'Nama Website', 'required')) }}
 		<span class="help-block">{{ $errors->first('site_name') }}</span>
@@ -26,7 +26,19 @@
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('address', 'Alamat Instansi', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('logo', 'Logo', array('class'=>'col-sm-3 control-label')) }}
+		<div class="input-group col-xs-6">
+			{{ Form::file('logo', array('class'=>'form-control input-sm', 'id'=>'logo', 'placeholder'=>'Logo')) }}<nobr>
+			@if(Config::get('setting.logo'))
+				{{ HTML::image('image/logo/dir/30/'.Config::get('setting.logo')) }}
+				{{ Form::checkbox('removedFile', '1', false, array('id'=>'remove')).' '.Form::label('remove', 'Remove this image?') }}
+			@endif
+		<span class="help-block">{{ $errors->first('logo') }}</span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		{{ Form::label('address', 'Alamat Instansi', array('class'=>'col-sm-3 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::textarea('address', Config::get('setting.address'), array('class'=>'form-control input-sm', 'id'=>'address', 'placeholder'=>'Alamat Isntansi', 'required', 'rows'=>5)) }}
 		<span class="help-block">{{ $errors->first('address') }}</span>
@@ -34,7 +46,7 @@
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('site_theme', 'Theme', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('site_theme', 'Theme', array('class'=>'col-sm-3 control-label')) }}
 		<div class="input-group col-xs-6">
 		<?php
 			$themes_dir = array();
@@ -49,7 +61,7 @@
 	</div>
 
 	<div class="form-group">
-	{{ Form::label('per_page', 'List Perpage', array('class'=>'col-sm-2 control-label')) }}
+	{{ Form::label('per_page', 'List Perpage', array('class'=>'col-sm-3 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::text('per_page', Config::get('setting.per_page'), array('class'=>'form-control input-sm', 'id'=>'per_page', 'placeholder'=>'List Perpage', 'required')) }}
 			<span class="help-block">{{ $errors->first('per_page') }}</span>
@@ -57,7 +69,7 @@
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('mail_driver', 'Mail Driver', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('mail_driver', 'Mail Driver', array('class'=>'col-sm-3 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::select('mail_driver', array('smtp'=>'smtp','mail'=>'mail','sendmail'=>'sendmail'), Config::get('setting.mail_driver'), array('class'=>'form-control input-sm', 'id'=>'mail_driver', 'placeholder'=>'Mail Driver')) }}
 			<span class="help-block">{{ $errors->first('mail_driver') }}</span>
@@ -65,7 +77,7 @@
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('mail_port', 'Mail Port', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('mail_port', 'Mail Port', array('class'=>'col-sm-3 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::text('mail_port', Config::get('setting.mail_port'), array('class'=>'form-control input-sm', 'id'=>'mail_port', 'placeholder'=>'Mail Port')) }}
 			<span class="help-block">{{ $errors->first('mail_port') }}</span>
@@ -73,7 +85,7 @@
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('mail_host', 'Mail Host', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('mail_host', 'Mail Host', array('class'=>'col-sm-3 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::text('mail_host', Config::get('setting.mail_host'), array('class'=>'form-control input-sm', 'id'=>'mail_host', 'placeholder'=>'Mail Host')) }}
 			<span class="help-block">{{ $errors->first('mail_host') }}</span>
@@ -81,7 +93,7 @@
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('mail_encryption', 'Mail Encryption', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('mail_encryption', 'Mail Encryption', array('class'=>'col-sm-3 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::select('mail_encryption', array('tls'=>'tls','ssl'=>'ssl'), Config::get('setting.mail_encryption'), array('class'=>'form-control input-sm', 'id'=>'mail_encryption', 'placeholder'=>'Mail Encryption')) }}
 			<span class="help-block">{{ $errors->first('mail_encryption') }}</span>
@@ -89,7 +101,7 @@
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('mail_username', 'Mail Username', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('mail_username', 'Mail Username', array('class'=>'col-sm-3 control-label')) }}
 		<div class="input-group col-xs-6">
 			{{ Form::text('mail_username', Config::get('setting.mail_username'), array('class'=>'form-control input-sm', 'id'=>'mail_username', 'placeholder'=>'Mail Username')) }}
 			<span class="help-block">{{ $errors->first('mail_username') }}</span>
@@ -97,7 +109,7 @@
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('mail_password', 'Mail Password', array('class'=>'col-sm-2 control-label')) }}
+		{{ Form::label('mail_password', 'Mail Password', array('class'=>'col-sm-3 control-label')) }}
 		<div class="input-group col-xs-6">
 		@if(Config::get('setting.mail_password'))
 			{{ Form::input('password','mail_password', Crypt::decrypt(Config::get('setting.mail_password')), array('class'=>'form-control input-sm', 'id'=>'mail_password', 'placeholder'=>'Mail Password')) }}
@@ -111,15 +123,16 @@
 
 
 	<div class="form-group">
-		<div class="col-sm-offset-2">
+		<div class="col-sm-offset-3">
 			<button type="submit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-save"></span> Save</button>
 		</div>
 	</div>
 
 	{{ Form::close() }}
 	</div>
-	<div class=".col-xs-5 col-md-3">
+	<div class=".col-xs-6 col-md-4">
 		<div class="well">
+		<h4>Tips</h4>
 		Konfigurasi Email menggunakan gmail
 			<ul>
 				<li>Mail driver : smtp</li>

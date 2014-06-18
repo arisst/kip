@@ -27,7 +27,7 @@ class BaseController extends Controller {
 		}
 		else
 		{
-			$img_path = public_path().'/assets/images/';
+			$img_path = public_path().'/assets/images/'.$file;
 		}
 
 		$img = Image::make($img_path);

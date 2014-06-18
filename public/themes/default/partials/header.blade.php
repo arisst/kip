@@ -12,10 +12,14 @@
 	    </ul>
 	</div>
 
-	<h1 class="logo"> <a href="{{URL::to('/')}}">
-	<!-- <img src="{{Theme::asset()->url('img/logo.png')}}" /></a>  -->
-	<img src="http://placehold.it/145x74" /></a> 
+ @if(Config::get('setting.logo'))
+	<h1 class="logo"> 
+	<a href="{{URL::to('/')}}">
+		<!-- <img src="http://placehold.it/145x74" /> -->
+		{{HTML::image('image/logo/dir/145x74/'.Config::get('setting.logo'))}}
+	</a> 
 	</h1>
+ @endif
 
 	<div class="responsive-nav" style="display:none;">
 	    <select  onchange="if(this.options[this.selectedIndex].value != ''){window.top.location.href=this.options[this.selectedIndex].value}">

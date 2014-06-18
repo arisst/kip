@@ -6,13 +6,12 @@ class SettingController extends BaseController {
 	{
 		return View::make('dashboard.setting');
 	}
-
-
 	
 	public function update()
 	{
 		$rules = array(
 			'site_name'=>'required',
+			'logo' => 'mimes:jpeg,bmp,png',
 			'site_theme'=>'required',
 			'per_page'=>'required|numeric|between:5,100',
 			'mail_driver'=>'required',
@@ -53,7 +52,25 @@ class SettingController extends BaseController {
 
 					");*/
 
+			$logo = '';
+			if(Input::hasFile('logo'))
+			{
+				$file = Input::file('logo'); 
+				$destinationPath = public_path().'/assets/images';
+				$filename = $file->getClientOriginalName();
+				if(!File::exists($destinationPath)) File::makeDirectory($destinationPath);
+				Image::make($file->getRealPath())->save($destinationPath.'/'.$filename, 60);
+				$logo = $filename;
+			}
+
+			if(Input::has('removedFile'))
+			{
+				File::delete(public_path().'/assets/images/'.Config::get('setting.logo'));
+				$location = '';
+			}
+
 			DB::table('setting')->where('key','=','site_name')->update(array('value'=>Input::get('site_name')));
+			DB::table('setting')->where('key','=','logo')->update(array('value'=>$logo));
 			DB::table('setting')->where('key','=','address')->update(array('value'=>Input::get('address')));
 			DB::table('setting')->where('key','=','site_theme')->update(array('value'=>Input::get('site_theme')));
 			DB::table('setting')->where('key','=','per_page')->update(array('value'=>Input::get('per_page')));
