@@ -60,13 +60,21 @@
 					<td>{{$value->added_on}}</td>
 					<td class="hidden-print">
 						{{ Form::open(array('route' => array('admin.requests.destroy', $value->id), 'style' => 'margin-bottom:0')) }}
-							<a class="btn btn-xs btn-success" href="{{ URL::route('admin.requests.show', $value->id) }}">
+							<a class="btn btn-xs btn-info" href="{{ URL::route('admin.requests.show', $value->id) }}">
 								<span class="glyphicon glyphicon-eye-open"></span>View
 							</a>
+						@if($value->status==0)
+							<a class="btn btn-xs btn-success" href="{{ URL::route('admin.requests.show', $value->id) }}?act=accept">
+								<span class="glyphicon glyphicon-ok"></span>Accept
+							</a>
+							<a class="btn btn-xs btn-warning" href="{{ URL::route('admin.requests.show', $value->id) }}?act=reject">
+								<span class="glyphicon glyphicon-remove"></span>Reject
+							</a>
+						@endif
 							{{ Form::hidden('_method', 'DELETE') }}
-							<button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Delete this data?');">
+							<!-- <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Delete this data?');">
 								<span class="glyphicon glyphicon-trash"></span> Delete
-							</button>
+							</button> -->
 						{{ Form::close() }}
 					</td>
 				</tr>

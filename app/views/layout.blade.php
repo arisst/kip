@@ -15,7 +15,7 @@
         	<ul class="nav navbar-nav">
             <li class="{{ Request::is('admin/informations*') ? 'active' : '' }}">{{ HTML::link('admin/informations', 'Information') }}</li>
             <li class="{{ Request::is('admin/requests*') ? 'active' : '' }}">{{ HTML::link('admin/requests', 'Request') }}</li>
-            <li class="{{ Request::is('admin/response*') ? 'active' : '' }}">{{ HTML::link('admin/responses', 'Response') }}</li>
+            <!-- <li class="{{ Request::is('admin/response*') ? 'active' : '' }}">{{ HTML::link('admin/responses', 'Response') }}</li> -->
             <li class="{{ Request::is('admin/pages*') ? 'active' : '' }}">{{ HTML::link('admin/pages', 'Page') }}</li>
             <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">{{ HTML::link('admin/users', 'User') }}</li>
     			  <li class="{{ Request::is('admin/setting*') ? 'active' : '' }}">{{ HTML::link('admin/setting', 'Setting') }}</li>

@@ -1,5 +1,5 @@
 <footer>
-	 <ul class="footer_links">
+	<!--  <ul class="footer_links">
                 <li> <span>New Arrivals</span>
                     <ul>
                         <li><a href="#">Clothing</a></li>
@@ -46,7 +46,7 @@
                         <li><a href="#">My Updates & Alerts</a></li>
                     </ul>
                 </li>
-            </ul>
+            </ul> -->
             <!-- <div class="footer_customblock">
                 <div class="shipping_info"> <span>introducing </span><br>
                     <big>FREE SHIPPING</big><br>
@@ -54,6 +54,7 @@
                 <div class="contact_info"> <big>1.800. (1.800.260.7890)</big> </div>
             </div> -->
             <address>
-            Copyright © {{Config::get('setting.site_name')}}. All Rights Reserved. <img src="{{Theme::asset()->url('img/payment_info.jpg')}}"/>
+            Copyright © {{HTML::link('/',Config::get('setting.site_name'))}}. All Rights Reserved. 
+            <!-- <img src="{{Theme::asset()->url('img/payment_info.jpg')}}"/> -->
             </address>
 </footer>

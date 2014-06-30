@@ -8,7 +8,7 @@
           <table class="data-table cart-table" id="shopping-cart-table" cellpadding="0" cellspacing="0">
             <tr>
               <th colspan="1">Informasi</th>
-              <!-- <th class="align_center" width="6%">Tanggal</th> -->
+              <th class="align_center" width="6%">Lama</th>
               <th class="align_center" width="12%">Status</th>
               <th class="align_center" width="10%">File</th>
             </tr>
@@ -31,7 +31,14 @@
                   {{$key->rdescription}}
                 </div>
               </td>
-              <!-- <td class="align_center vline">{{$key->added_on}}</td> -->
+              <td class="align_center vline">
+              <?php 
+              $tanggal2 = ($key->rtanggal) ? $key->rtanggal : date("Y-m-d H:i:s") ;
+                $date1 = new DateTime($key->added_on);
+                $date2 = new DateTime($tanggal2);
+                $interval = $date1->diff($date2);
+               ?>
+              {{$interval->format('%a hari')}}</td>
               <td class="align_center vline">
                 @if('0'==$key->status) <p class="warning"> {{'Menunggu'}} </p>
                 @elseif('1'==$key->status) <p class="success"> {{'Diterima'}} </p>

@@ -49,7 +49,7 @@ class ResponsesController extends \BaseController {
 		//Kirim email
 		Mail::queue('emails.response', 
 					array(
-						'link'=> URL::to('requests#request'.$request->id), 
+						'link'=> URL::to('request#request'.$request->id), 
 						'name' => $request->name
 						), 
 					function($message) use ($request){
@@ -57,7 +57,7 @@ class ResponsesController extends \BaseController {
 				});
 
 		Session::flash('message', 'Respon success!');
-		return Redirect::route('admin.responses.index');
+		return Redirect::to('admin/requests/'.$request_id);//route('admin.responses.index');
 	}
 
 	public function show($id)
