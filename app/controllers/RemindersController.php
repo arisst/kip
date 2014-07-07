@@ -1,6 +1,6 @@
 <?php
 
-class RemindersController extends Controller {
+class RemindersController extends FrontController {
 
 	/**
 	 * Display the password reminder view.
@@ -39,7 +39,16 @@ class RemindersController extends Controller {
 	{
 		if (is_null($token)) App::abort(404);
 
-		return View::make('password.reset')->with('token', $token);
+		$reminder = DB::table('password_reminders')->where('token','=',$token)->get();
+		if(!$reminder) App::abort(404);
+		$this->theme->set('token', $token);
+		foreach ($reminder as $key);
+		$this->theme->set('email', $key->email);
+
+		$view = array('page'=>'blank', 'subtitle'=>'Reset Password - ');
+		return $this->theme->of('front.account.reset', $view)->render();
+
+		// return View::make('password.reset')->with('token', $token);
 	}
 
 	/**
@@ -68,7 +77,8 @@ class RemindersController extends Controller {
 				return Redirect::back()->with('error', Lang::get($response));
 
 			case Password::PASSWORD_RESET:
-				return Redirect::to('/');
+				Session::flash('message', 'Password berhasil diubah!');
+				return Redirect::route('login-form');
 		}
 	}
 

@@ -1,0 +1,4 @@
+<section>
+
+        {{Theme::content()}}
+</section>
