@@ -11,6 +11,8 @@ Route::get('prosedur/{slug}', array('as'=>'page-detail','uses'=>'FrontController
 Route::get('faq/{slug}', array('as'=>'about-detail','uses'=>'FrontController@pageDetail'));
 Route::get('tentang/{slug}', array('as'=>'about-detail','uses'=>'FrontController@pageDetail'));
 Route::get('berita/{slug}', array('as'=>'about-detail','uses'=>'FrontController@pageDetail'));
+Route::get('kontak-kami', array('as'=>'contact','uses'=>'ContactController@show'));
+Route::post('kontak-kami', array('before'=>'csrf','as'=>'contact-submit','uses'=>'ContactController@doSubmit'));
 
 Route::get('login', array('as'=>'login-form', 'before'=>'guest', 'uses'=>'AccountController@showLogin'));
 Route::post('login', array('before'=>'csrf','as'=>'login-submit','uses'=>'AccountController@doLogin'));

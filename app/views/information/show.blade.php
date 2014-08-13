@@ -23,7 +23,11 @@
       <li class="list-group-item">File :
       @if($information->attachment)
         <ul>
-          <li>Nama File : {{{explode('/', $information->attachment)[1]}}}</li>
+        <?php 
+        $extract_file = explode('/', $information->attachment);
+        $nama_file = $extract_file[1];
+         ?>
+          <li>Nama File : {{{$nama_file}}}</li>
           <li>Ekstensi : {{{ File::extension(public_path().'/uploads/'.$information->attachment)}}}</li>
           <li>Besar File : {{{ number_format(((File::size(public_path().'/uploads/'.$information->attachment))/1024),2) }}} Kb</li>
         </ul>

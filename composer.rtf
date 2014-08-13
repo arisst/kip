@@ -1,0 +1,45 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww12600\viewh7800\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0 \{\
+	"name": "laravel/laravel",\
+	"description": "The Laravel Framework.",\
+	"keywords": ["framework", "laravel"],\
+	"license": "MIT",\
+	"require": \{\
+		"laravel/framework": "4.1.*",\
+		"teepluss/theme": "dev-master",\
+		"intervention/image": "2.*"\
+	\},\
+	"autoload": \{\
+		"classmap": [\
+			"app/commands",\
+			"app/controllers",\
+			"app/models",\
+			"app/database/migrations",\
+			"app/database/seeds",\
+			"app/tests/TestCase.php"\
+		]\
+	\},\
+	"scripts": \{\
+		"post-install-cmd": [\
+			"php artisan clear-compiled",\
+			"php artisan optimize"\
+		],\
+		"post-update-cmd": [\
+			"php artisan clear-compiled",\
+			"php artisan optimize"\
+		],\
+		"post-create-project-cmd": [\
+			"php artisan key:generate"\
+		]\
+	\},\
+	"config": \{\
+		"preferred-install": "dist"\
+	\},\
+	"minimum-stability": "stable"\
+\}\
+}

@@ -3,7 +3,7 @@
             <li class="{{ (Route::currentRouteName()=='home') ? 'active' : '' }}"><a href="{{URL::route('home')}}">HOME</a></li>
 
               @foreach (Theme::getMenu() as $element)
-                  <li class="{{(Request::is($element['head'].'*')) ? 'active' : ''}}"> {{HTML::link($element['headLink'], $element['head'])}}
+                  <li class="{{(Request::is($element['head'].'*')) ? 'active' : ''}}"> {{HTML::link($element['headLink'], str_replace('-',' ',$element['head']))}}
                     @if(isset($element['list'])&&$element['list']!='')
                      <ul class="sub_menu">
                         <li> <a href="#">{{$element['subhead'] or ''}}</a>

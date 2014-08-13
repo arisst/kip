@@ -103,7 +103,7 @@ class UsersController extends BaseController {
 			$user->save();
 
 			Session::flash('message', 'Successfully updated user!');
-			return Redirect::to('admin.users.index');
+			return Redirect::route('admin.users.index');
 		}
 	}
 
@@ -113,7 +113,7 @@ class UsersController extends BaseController {
 		$user->delete();
 
 		Session::flash('message', 'Successfully deleted the user!');
-		return Redirect::to('admin.users.index');
+		return Redirect::route('admin.users.index');
 	}
 
 }

@@ -21,10 +21,10 @@
                     <div class="home_banner"><a href="#"><img src="{{ Theme::asset()->url('img/promo_hb_2.jpg') }}"></a></div>
                     <div class="home_banner"><a href="#"><img src="{{ Theme::asset()->url('img/promo_hb_3.jpg') }}"></a></div> -->
                     @foreach(Theme::getBerita() as $berita)
-                    <div class="home_banner"><a href="{{URL::to('berita/'.$berita->slug)}}">
+                    <div class="home_banner" style="position:relative;width:100%;"><a href="{{URL::to('berita/'.$berita->slug)}}">
                         {{HTML::image('image/page/'.$berita->slug.'/278x141/'.$berita->attachment)}}
                         </a>
-                        <span class="text-content"><span>{{{$berita->title}}}</span></span>
+                        <span class="text-content" style="position:absolute;width:100%;bottom:0px;color:#fff;background-color:#3E3935;opacity:0.8;"><span>{{{$berita->title}}}</span></span>
                     </div>
                     @endforeach
                 </div>

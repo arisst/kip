@@ -38,7 +38,7 @@
             	Jika anda tidak merasa mendaftar silakan hubungi kami pada alamat di samping atau kunjungi {{HTML::link('/')}}
             </span></p></span>
             <p align="left" class="footer-content-left">
-            	{{HTML::link('http://arisst.com/bug', 'Laporkan Bug')}}
+            	{{HTML::linkRoute('contact', 'Laporkan Bug')}}
             </p>
             </td>
             <td class="hide w0" width="60"></td>

@@ -16,6 +16,7 @@ class FrontController extends BaseController
 	function menu()
 	{
 		$information = Informations::distinct()->get(array('category'));
+		$category = '';
 		foreach ($information as $key) 
 		{
 			$category[] = $key->category;
@@ -52,7 +53,8 @@ class FrontController extends BaseController
 			array('head'=>'berita','headLink'=>'#', 'list'=>$page_berita),
 			array('head'=>'faq','headLink'=>'#','subhead'=>'Frequently Asked Questions', 'list'=>$page_faq),
 			// array('head'=>'kontak','headLink'=>'contact'),
-			array('head'=>'tentang','headLink'=>'about', 'subhead'=>'Tentang KIP','list'=>$page_about),
+			array('head'=>'tentang','headLink'=>'#', 'subhead'=>'Tentang KIP','list'=>$page_about),
+			array('head'=>'kontak-kami','headLink'=>'kontak-kami'),
 		);
 	}
 
