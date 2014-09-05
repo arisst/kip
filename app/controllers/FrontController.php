@@ -60,9 +60,9 @@ class FrontController extends BaseController
 
 	public function showIndex()
 	{
-		$ber = Pages::where('cat','=','4')->where('attachment','!=','')->orderBy('updated_at','desc')->take(3)->get();
+		$ber = Pages::where('cat','=','4')/*->where('attachment','!=','')*/->orderBy('updated_at','desc')->take(3)->get();
 		$this->theme->setBerita($ber);
-		$pros = Pages::where('cat','=','1')->where('attachment','!=','')->orderBy('updated_at','desc')->take(5)->get();
+		$pros = Pages::where('cat','=','1')/*->where('attachment','!=','')*/->orderBy('updated_at','desc')->take(5)->get();
 		$this->theme->setProsedur($pros);
 
 		$view = array('subtitle' => 'Home | ');

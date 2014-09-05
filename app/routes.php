@@ -1,6 +1,6 @@
 <?php
 
-Route::get('image/{use}/{dir}/{size}/{file}','BaseController@image');
+Route::get('image/{use}/{dir}/{size}/{file?}','BaseController@image');
 
 Route::get('/', array('as'=>'home','uses'=>'FrontController@showIndex'));
 // Route::post('/', array('as'=>'login-api','uses'=>'ApiController@login'));

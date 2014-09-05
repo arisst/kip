@@ -17,17 +17,32 @@ class BaseController extends Controller {
 	}
 
 
-	public function image($use, $dir, $size, $file)
+	public function image($use, $dir, $size, $file='')
 	{
 		$ex = explode('x', $size);
 		if($ex[0] <= 0 || $ex[0] > 2000) App::abort(404);
 		if($use == 'page')
 		{
-			$img_path = public_path().'/assets/images/'.$dir.'/'.$file;
+			if($file!='')
+			{
+				$img_path = public_path().'/assets/images/'.$dir.'/'.$file;
+			}
+			else
+			{
+				$img_path = public_path().'/assets/images/noimage.jpg';
+			}
+
 		}
 		else
 		{
-			$img_path = public_path().'/assets/images/'.$file;
+			if($file!='')
+			{
+				$img_path = public_path().'/assets/images/'.$file;
+			}
+			else
+			{
+				$img_path = public_path().'/assets/images/noimage.jpg';
+			}
 		}
 
 		$img = Image::make($img_path);
