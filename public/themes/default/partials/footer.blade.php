@@ -54,7 +54,7 @@
                 <div class="contact_info"> <big>1.800. (1.800.260.7890)</big> </div>
             </div> -->
             <address>
-            Copyright © {{HTML::link('/',Config::get('setting.site_name'))}}. All Rights Reserved. 
+            Copyleft (ɔ) {{HTML::link('http://airputih.or.id', 'AirPutih', array('target'=>'_blank'))}}. All Rights Reserved. 
             <!-- <img src="{{Theme::asset()->url('img/payment_info.jpg')}}"/> -->
             </address>
 </footer>
